@@ -5,61 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll Video Simulation</title>
-
-    <style>
-        html {
-            height: 100vh;
-
-            scrollbar-width: none;
-        }
-
-        body {
-            padding: 0vh;
-            height: 500vh;
-            background: #000;
-        }
-
-        canvas {
-            padding-top: 8vh;
-            padding-left: 0vh;
-            padding-right: 0vh;
-            margin-left: 0vh;
-            margin-right: auto;
-            display: flex;
-            width: 100%;
-            position: fixed;
-            z-index: -1;
-        }
-
-        nav {
-            width: 100%;
-            display: flex;
-            position: fixed;
-            background-color: plum;
-        }
-
-        li {
-            background-color: red;
-            color: wheat;
-            display: inline-block;
-            z-index: 2;
-        }
-    </style>
+    <link rel="stylesheet" type="css" href="style/newstyle.css" media="all">
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>Home</li>
-            <li>Social</li>
-            <li>Tableau</li>
+    <div class="flex-container">
+        <div class="flex-item-1"> <a href="index.html">Home</a></div>
+        <div class="flex-item-2"> <a href="CodePort.html">Code portfolio</a></div>
+        <div class="flex-item-3"> <a href="3DPort.html">3D portfolio</a></div>
+        <div class="flex-item-4"> <a href="JournalPort.html">Journal</a>
 
-        </ul>
+        </div>
+    </div>
 
-
-
-
-    </nav>
     <canvas id="hero-lightpass" />
 
     <script src="scripts/scroll.js"></script>
