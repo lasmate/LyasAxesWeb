@@ -5,29 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll Video Simulation</title>
-    
+    <link href="style/newstyle.css" rel="stylesheet" type="text/css" media="all">
     <style>
-html {
-  height: 100vh;
-}
 
-body {
-  background: #000;
-  height: 500vh;
-}
-
-canvas {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  max-height: 100vh;
-  max-width: 100vw;
-  transform: translate(-50%, -50%);
-}
     </style>
+    
 </head>
 
 <body>
+    <div class="flex-container">
+        <div class="flex-item-1"> <a href="index.html">Home</a></div>
+        <div class="flex-item-2"> <a href="CodePort.html">Code portfolio</a></div>
+        <div class="flex-item-3"> <a href="3DPort.html">3D portfolio</a></div>
+        <div class="flex-item-4"> <a href="JournalPort.html">Journal</a>
+
+        </div>
+    </div>
+
     <canvas id="hero-lightpass" />
 
     <script src="scripts/scroll.js"></script>
