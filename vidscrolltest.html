@@ -14,17 +14,45 @@
 
 <body>
     <div class="flex-container">
-        <div class="flex-item-1"> <a href="index.html">Home</a></div>
-        <div class="flex-item-2"> <a href="CodePort.html">Code portfolio</a></div>
-        <div class="flex-item-3"> <a href="3DPort.html">3D portfolio</a></div>
-        <div class="flex-item-4"> <a href="JournalPort.html">Journal</a>
+        <div class="flex-nav"> <a href="index.html">Home</a></div>
+        <div class="flex-nav"> <a href="CodePort.html">Code portfolio</a></div>
+        <div class="flex-nav"> <a href="3DPort.html">3D portfolio</a></div>
+        <div class="flex-nav"> <a href="JournalPort.html">Journal</a>
 
         </div>
     </div>
 
-    <canvas id="hero-lightpass" />
+    <canvas id="hero-lightpass"></canvas>
+    <footer>
+        <img src="img/downarrow.svg"  id="downarrow">
+        <img src="img/downarrow.svg"  id="downarrow2">
+        
+    </footer>
+    <script>
+        function oscillateArrows() {
+            const arrow1 = document.getElementById('downarrow');
+            const arrow2 = document.getElementById('downarrow2');
+            let position = 0;
+            let direction = 1;
+
+            function animate() {
+                position += direction * 0.5;
+                if (position > 10 || position < 0) {
+                    direction *= -1;
+                }
+                arrow1.style.transform = `translateY(${position}px)`;
+                arrow2.style.transform = `translateY(${position}px)`;
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        document.addEventListener('DOMContentLoaded', oscillateArrows);
+    </script>
 
     <script src="scripts/scroll.js"></script>
+    
 </body>
 
 </html>
