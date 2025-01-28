@@ -56,6 +56,14 @@ li {
 	border-bottom-width: 5px;
 	color: wheat;
 }
+#downarrow #downarrow2{
+	height: 50px;
+	position: fixed;
+	bottom: 100vh;
+	left: 50%;
+	z-index: 2;
+
+}
 
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media (max-width: 600px) {
