@@ -54,15 +54,26 @@ li {
 	border-bottom-width: 5px;
 	color: wheat;
 }
-#downarrow #downarrow2{
+#downarrow {
 	height: 50px;
+	filter: drop-shadow(0px 0px 3px rgb(221 69 221 / 0.5));
 	position: fixed;
-	bottom: 100vh;
+	bottom: 2vh;
 	left: 50%;
 	z-index: 2;
-
 }
 
+#downarrow2 {
+	height: 50px;
+	filter: drop-shadow(0px 0px 3px rgb(221 69 221 / 0.5));
+	position: fixed;
+	bottom: 1vh;
+	left: 50%;
+	z-index: 2;
+}
+svg {
+	filter: drop-shadow(3px 5px 2px rgb(142 69 133 / 0.4));
+}
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media (max-width: 600px) {
 	canvas {
