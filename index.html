@@ -1,58 +1,59 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Axing of Lya</title>
-    <link href="style/Main.css" rel="stylesheet" type="text/css" media="all">
-    <script src="script/footer.js"></script>
-  </head>
+    <title>Scroll Video Simulation</title>
+    <link href="style/newstyle.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
 
-  <body>
-    <div id="site-content">
-    <h1>Hiya ti's Lya</h1>
-    <p id="intro">This is the homepage of my website!<br>to acess other pages scroll down to reveal the navigation Menu </p>
+</head>
 
-      <article>
-        <h2>Who am i, in 10 points</h2>
-        <ol>
-          <li>I go by she/her </li> 
-          <li>I am 24 years old</li>
-          <li>I am a dev/webdev that loves to tinker and put my hands in all things that contain code</li>
-          <li>My main Workflow is Arch under <a href="https://hyprland.org">[Hyprland]</a>using <a href="https://alacritty.org/">[Alacritty]</a> as my terminal et <a href="https://code.visualstudio.com/">[VScode]</a> as my IDE</li>
-          <li>I do 3d modelling as a hobby (<a href="https://www.blender.org/">[Blender]</a> my beloved)</li>
-          <li>I am deeply on love and involved with japanese Animation</li>
-          <li>I'm a gamer of most things if they have a good world-building and (story i can dive deep in) </li>
-          
-        </ol>
-
-      </article>
+<body>
+    <div class="flex-container">
+        <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
+        <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Code portfolio</span></div>
+        <div class="flex-nav"> <span onclick="location.href='3DPort.html'">3D portfolio</span></div>
+        <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
     </div>
-  </body>
-  <footer>
-    <div id="site-footer">
-      <table>
-      <th>
-        <menu>
-          <ul class="navbar">
-            <li ><a class="bot" href="JournalPort.html">Journal</a></li>
-            <li ><a class="bot" href="CodePort.html">Code Porfolio</a></li>
-            <li ><a class="bot" href="3DPort.html">3D CG Porfolio</a></li>
-            <li ><a class="bot" href="MediaPort.html">Media the matter a lot to me</a></li>
-          </ul>
-        </menu>
-      </th>
-    <th>
-      <menu>
-        <ul class="navbar" >
-          <li class="bot"><p>Contact</p></li>
-          <li class="bot"></li>
-        </ul>
-      </menu>
-    </th>
-    </table>
-    </div>
-  </footer>
+
+    <canvas id="hero-lightpass">
+        
+        
+    </canvas>
+    <img src="img/downarrow.svg" id="downarrow">
+    <img src="img/downarrow.svg" id="downarrow2">
+    <footer>
+        
+
+    </footer>
+    <script>
+        function oscillateArrows() {
+            const arrow1 = document.getElementById('downarrow');
+            const arrow2 = document.getElementById('downarrow2');
+            let position = 0;
+            let direction = 1;
+            const speed = 0.05; // Adjust speed for slower oscillation
+
+            function animate() {
+            position += direction * speed;
+            if (position > 10 || position < 0) {
+                direction *= -1;
+            }
+            arrow1.style.transform = `translateY(${position}px)`;
+            arrow2.style.transform = `translateY(${-position}px)`;
+            requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        document.addEventListener('DOMContentLoaded', oscillateArrows);
+    </script>
+
+    <script src="scripts/scroll.js"></script>
+
+</body>
+
 </html>
-
- 
