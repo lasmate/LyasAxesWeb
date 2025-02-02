@@ -7,6 +7,14 @@ body {
 	padding: 0vh;
 	height: 500vh;
 	background: #000;
+	font-family: 'genos', sans-serif;
+}
+
+@font-face {
+	font-family: "genos";
+	font-style: italic;
+	font-weight: 400;
+	src: url("fonts/Genos-Regular.otf") format("opentype");
 }
 
 canvas {
@@ -43,7 +51,7 @@ li {
 	z-index: 2;
 	color: wheat;
 	font-size: 2em;
-	background-color: plum;
+	background-color: rgba(221, 160, 221, 0.538);
 	position: fixed;
 }
 
@@ -51,10 +59,15 @@ li {
 	align-items:center;
 	padding-left: 2vh;
 	padding-right: 2vh;
-	padding-top: 1vh;
+
 	border-bottom: black;
 	border-bottom-width: 5px;
 	color: wheat;
+	cursor: pointer;
+}
+.flex-nav:hover {
+	background-color: rgba(86, 27, 86, 0.538);
+	
 }
 #downarrow {
 	height: 50px;
@@ -73,9 +86,7 @@ li {
 	left: 50%;
 	z-index: 2;
 }
-svg {
-	filter: drop-shadow(3px 5px 2px rgb(142 69 133 / 0.4));
-}
+
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media (max-width: 600px) {
 	canvas {
