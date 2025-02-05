@@ -1,38 +1,22 @@
-const html = document.documentElement;
-const canvas = document.getElementById("hero-lightpass");
-const context = canvas.getContext("2d");
+var totalImages = 240;
+var images = [];
+for (var i = 0; i < totalImages; i++) {
+    var formattedIndex = ('0000' + i).slice(-4);
+    var img = new Image();
+    img.src = 'imgscrl/' + formattedIndex + '.webp';
+    images.push(img);
+}
 
-const frameCount = 240;
-const currentFrame = index => `imgscrl/${index.toString().padStart(4, '0')}.webp`;
+document.addEventListener('scroll', function() {
+    var scrollPosition = window.scrollY;
+    var heroElement = document.getElementById('hero-lightpass');
+    var imageIndex = Math.min(Math.floor(scrollPosition / 10), totalImages - 1); // Adjust the divisor as needed
+    var formattedIndex = ('0000' + imageIndex).slice(-4); // Format the index to be four digits
+    var newImage = 'imgscrl/' + formattedIndex + '.webp'; // Create the new image path
 
-const preloadImages = () => {
-    for (let i = 1; i < frameCount; i++) {
-        const img = new Image();
-        img.src = currentFrame(i);
-    }
-};
-preloadImages();
+    heroElement.style.backgroundImage = 'url(' + newImage + ')';
 
-const img = new Image();
-img.src = currentFrame(1);
-canvas.width = 2048;
-canvas.height = 1066;
-img.onload = () => context.drawImage(img, 0, 0);
-
-const updateImage = index => {
-    img.src = currentFrame(index);
-    context.drawImage(img, 0, 0);
-};
-
-window.addEventListener('scroll', () => {
-    const scrollTop = html.scrollTop;
-    const maxScrollTop = html.scrollHeight - window.innerHeight;
-    const scrollFraction = scrollTop / maxScrollTop;
-    const frameIndex = Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount));
-
-    requestAnimationFrame(() => updateImage(frameIndex + 1));
-
-    if (frameIndex === 239) {
-        window.scrollTo(-1, 0);
+    if (imageIndex === totalImages - 1) {
+        window.scrollTo(0, 0); // Reset scroll position to 0 when the last image is reached
     }
 });

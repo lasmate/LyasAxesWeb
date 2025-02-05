@@ -8,52 +8,31 @@
     <link href="style/newstyle.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
 
+   
+    <script src="scripts/scrollindic.js"></script>
+    <script src="scripts/scroll.js"></script>
 </head>
 
 <body>
+   
     <div class="flex-container">
         <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
-        <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Code portfolio</span></div>
+        <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Code portfolio</span></div>
         <div class="flex-nav"> <span onclick="location.href='3DPort.html'">3D portfolio</span></div>
         <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
     </div>
 
-    <canvas id="hero-lightpass">
-        
-        
-    </canvas>
+   
+
     <img src="img/downarrow.svg" id="downarrow">
     <img src="img/downarrow.svg" id="downarrow2">
     <footer>
         
 
     </footer>
-    <script>
-        function oscillateArrows() {
-            const arrow1 = document.getElementById('downarrow');
-            const arrow2 = document.getElementById('downarrow2');
-            let position = 0;
-            let direction = 1;
-            const speed = 0.05; // Adjust speed for slower oscillation
+   
 
-            function animate() {
-            position += direction * speed;
-            if (position > 10 || position < 0) {
-                direction *= -1;
-            }
-            arrow1.style.transform = `translateY(${position}px)`;
-            arrow2.style.transform = `translateY(${-position}px)`;
-            requestAnimationFrame(animate);
-            }
-
-            animate();
-        }
-
-        document.addEventListener('DOMContentLoaded', oscillateArrows);
-    </script>
-
-    <script src="scripts/scroll.js"></script>
-
+ <div id="hero-lightpass" style="background-image: url(imgscrl/0000.webp); background-size: contain; background-position: center; width: 100%; height: 100vh; background-attachment: fixed; position: sticky; top: 0;"></div>
 </body>
 
 </html>

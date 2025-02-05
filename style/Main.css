@@ -37,14 +37,14 @@ html, body{
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(img/background\ CV.jpg);
+	background-image: url(../img/background\ CV.jpg);
 }
 #site-footer {
 	min-height: 20vh ;
 
 	background-size: cover;
 	background-position:top ;
-	background-image: url(img/Destiny.png );
+	background-image: url(../img/Destiny.png );
 }
 #intro{
     padding: 1%;
