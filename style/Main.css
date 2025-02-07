@@ -1,10 +1,9 @@
 html, body{
     padding: 0;
 	margin: 0;
-    height: 140vh;
+    height: 130vh;
     
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: whitesmoke;
+	font-family: 'genos', sans-serif;    color: whitesmoke;
 	background-color: #000;
 	text-shadow:5px 5px 20px #c92fc9;
     
@@ -14,7 +13,7 @@ html, body{
 #site-content {
 	min-height: 100%;
 	min-height: 100vh;
-	padding-top: 65px;
+	padding-top: 2vh;
 	position: relative;
 	z-index: 2;
 
@@ -60,29 +59,6 @@ a{
     color: bisque;
     font-style:italic;
 }
-ol{
-    padding-bottom: 1em;
-    /* doest not work look into it */
-}
-ul.navbar{
-	position: bottom,left,fixed;
-	padding-top: 15%;
-}
-a.bot{
-	padding: 2px;
-	background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px;
-}
-a.bot:hover{
-    padding: 8px;
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px;
-    color:bisque;
-}
-
-a:hover{
-    color: #e908e9;
-}
 
 li{
     margin-top: 1%;
@@ -115,4 +91,31 @@ table{
 }
 .InPro{
 	color: darkcyan;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items:center;
+	z-index: 2;
+	color: wheat;
+	font-size: 2em;
+	background-color: rgba(221, 160, 221, 0.538);
+	position: fixed;
+	bottom: 0%;
+	width: 100%;
+}
+
+.flex-nav {
+	align-items:center;
+	padding-left: 2vh;
+	padding-right: 2vh;
+	border-bottom: black;
+	border-bottom-width: 5px;
+	color: wheat;
+	cursor: pointer;
+}
+.flex-nav:hover {
+	background-color: rgba(86, 27, 86, 0.538);
 }
