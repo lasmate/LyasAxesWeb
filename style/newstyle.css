@@ -49,6 +49,16 @@ body {
 .flex-nav:hover {
 	background-color: rgba(86, 27, 86, 0.538);
 }
+.scrollgates{
+	position: absolute;
+	height: 110vh;
+	transform: translate(-50%, 0);
+}
+.scrollgates-focus{
+	position: sticky;
+	cursor:crosshair ;
+	/* background-color: rgba(128, 0, 128, 0.5); */
+}
 .downarrow{
 	height: 50px;
 	filter: drop-shadow(0px 0px 3px rgb(221 69 221 / 0.5));
@@ -86,7 +96,7 @@ body {
 	}
 	.flex-container {
 		flex-direction: column;
-		height: 100vh;
+		height: 100%;
 		background-color: rgb(221, 160, 221);
 		/*position: relative;
 		margin-top: 20vh;*/
