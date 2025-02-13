@@ -12,28 +12,54 @@
     <script src="scripts/scrollindic.js"></script>
     <script src="scripts/scroll.js"></script>
 </head>
-
+<style></style>
 <body>
-   
-    <div class="flex-container">
-        <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Code portfolio</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">3D portfolio</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
-    </div>
+<style>
+    body {
+        cursor:none
+    }
 
-   
+    .custom-cursor {
+        position: absolute;
+        width: 50px; /* Increased size */
+        height: 50px; /* Increased size */
+        background: radial-gradient(circle, rgba(139,30,130,0.3) 25%, rgba(221,99,154,0.8) 40%, rgba(41, 196, 248, 0) 65%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        transform: translate(-50%, -50%); /* Center the circle at the middle of the pointer */
+    }
+</style>
+<script>
+    document.addEventListener('mousemove', function(e) {
+        var cursor = document.getElementById('customCursor');
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+    });
+</script>
 
+<div class="flex-container">
+    <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Code portfolio</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">3D portfolio</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
+</div>
+
+
+
+<div id="hero-lightpass" style="background-image: url(imgscrl/0000.webp); background-size:contain;background-repeat: no-repeat; background-position: center;  background-attachment: fixed; position: sticky;width: 100%; height: 94vh; top: 5vh;">
     <img src="img/downarrow.svg" id="downarrow">
-    <img src="img/downarrow.svg" id="downarrow2">
-    <footer>
-        
+    <img src="img/downarrow.svg" id="downarrow2"></div>
+<div style="position: absolute; top: 75vh; left: 94vw; width: 11vw; height: 100vh; transform: translate(-50%, 0); cursor: pointer; background-color: rgba(255, 0, 0, 0.5);" >
+    <div style="position: sticky; top: 35%;  height: 28vw; background-color: rgba(128, 0, 128, 0.5);" onclick="location.href='Pages/CodePort.html'">
 
-    </footer>
-   
-   
+    </div>
+</div>
+<div style="position: absolute; top: 175vh; left: 13vw; width: 9vw; height: 100vh; transform: translate(-50%, 0); cursor: pointer; background-color: rgba(0, 13, 255, 0.5);">
+    <div style="position: sticky; top: 40%;  height: 10%; background-color: rgba(128, 0, 128, 0.5);" onclick="location.href='Pages/3DPort.html'">
 
- <div id="hero-lightpass" style="background-image: url(imgscrl/0000.webp); background-size:contain;background-repeat: no-repeat; background-position: center;  background-attachment: fixed; position: sticky;width: 100%; height: 94vh; top: 5vh;"></div>
-</body>
+    </div>
+</div>
 
+<div class="custom-cursor" id="customCursor"></div>
 </html>
