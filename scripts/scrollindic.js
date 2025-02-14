@@ -1,5 +1,5 @@
 function oscillateArrows() {
-    const arrow1 = document.getElementById('downarrow');
+    const arrow1 = document.getElementById('downarrow1');
     const arrow2 = document.getElementById('downarrow2');
     let position = 0;
     let direction = 1;

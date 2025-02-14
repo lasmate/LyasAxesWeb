@@ -12,30 +12,40 @@
     <script src="scripts/scrollindic.js"></script>
     <script src="scripts/scroll.js"></script>
 </head>
+<style>
 
-<body>
+    </style>
+<body class="crt">
 
-    <div class="flex-container">
-        <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Code portfolio</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">3D portfolio</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
+<div ></div>
+<script>
+    document.addEventListener('mousemove', function(e) {
+        var cursor = document.getElementById('customCursor');
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+    });
+</script>
+
+<div class="flex-container">
+    <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Code portfolio</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">3D portfolio</span></div>
+    <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
+</div>
+<div id="hero-lightpass">
+    <img src="img/downarrow.svg" class="downarrow" id="downarrow1">
+    <img src="img/downarrow.svg" class="downarrow" id="downarrow2">
+</div>
+<div class="scrollgates" style="top: 75vh; left: 94vw; width: 11vw;" >
+    <div class="scrollgates-focus" style="top: 35%; height: 28vw;" onclick="location.href='Pages/CodePort.html'">
+
     </div>
+</div>
+<div class="scrollgates" style="top: 175vh; left: 13vw; width: 9vw;;">
+    <div class="scrollgates-focus" style="top: 38%;  height: 8vw;" onclick="location.href='Pages/3DPort.html'">
 
-
-
-    <img src="img/downarrow.svg" id="downarrow">
-    <img src="img/downarrow.svg" id="downarrow2">
-    <footer>
-
-
-    </footer>
-
-
-
-    <div id="hero-lightpass"
-        style="background-image: url(imgscrl/0000.webp); background-size:cover; background-position: center; width: 100%; height: 94vh; background-attachment: fixed; position: sticky; top: 5vh;">
     </div>
-</body>
+</div>
 
+<div class="custom-cursor" id="customCursor"></div>
 </html>
