@@ -8,41 +8,42 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
   <link href="../style/Main.css" rel="stylesheet" type="text/css" media="all">
   <script src="../scripts/footer.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" />
-  <script src="https://raw.githubusercontent.com/darcyclarke/Repo.js/master/repo.min.js" />
-  <script>
-    $(function () {
-      $('body').repo({user: 'darcyclarke', name: 'Repo.js'})
-    });
-  </script>
 
 
 </head>
 
 <body>
   <div id="site-content">
-    <h1>Lya Lasvenes's Code Potfolio</h1>
-    <p id="intro">This is My public code Portfolio<br> Here you will find a list of ma public core repos as well as a
+    <h1>Lya's Code Potfolio</h1>
+    <p id="intro"><span style="color: bisque;"><b>This is My public code Portfolio</b></span><br> Here you will find a list of ma public core repos as well as a
       quick description of what they are and what tools/languares i used <br>Not all will be completed projects, as such
-      they will have the according flairs #Completed, #Maintained, #In progress, #Dropped<br>As well as one of the
-      #Functionnal or #Not Functionnal ones<br><br>To acess other pages scroll down to reveal the navigation Menu </p>
+      they will have the according flairs <b>#Completed, #Maintained, #In progress, #Dropped</b><br>As well as one of the
+      <b>#Functionnal or #Not Functionnal</b> ones<br><br>To acess other pages scroll down to reveal the navigation Menu </p>
     <article>
       <h2>Most recent Project</h2>
-      <div id="git1">
-
-        <iframe src="https://github.com/lasmate/ML2-AppFAQ" width="100%" height="300" frameborder="0"
-          scrolling="no"></iframe>
-        <iframe src="https://github.com/lasmate/ML2-AppFAQ" width="100%" height="300" frameborder="0"
-          scrolling="no"></iframe>
-        <iframe src="https://github.com/lasmate/ML2-AppFAQ" width="100%" height="300" frameborder="0"
-          scrolling="no"></iframe>
-        <iframe src="https://github.com/lasmate/ML2-AppFAQ" width="100%" height="300" frameborder="0"
-          scrolling="no"></iframe>
-
-
-
-
+      <div id="repos">
+        <ul id="repo-list"></ul>
       </div>
+
+      <script>
+        fetch('https://api.github.com/users/lasmate/repos?sort=updated&per_page=3')
+          .then(response => response.json())
+          .then(data => {
+        const repoList = document.getElementById('repo-list');
+        data.forEach(repo => {
+          const listItem = document.createElement('li');
+          listItem.innerHTML = `
+            <a href="${repo.html_url}" target="_blank">${repo.name}</a>: ${repo.description}<br>
+            Last updated: ${new Date(repo.updated_at).toLocaleString()}
+          `;
+          repoList.appendChild(listItem);
+        });
+          })
+          .catch(error => console.error('Error fetching repos:', error));
+            </script>
+       
+
+
     </article>
   </div>
 </body>
