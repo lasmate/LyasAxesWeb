@@ -26,25 +26,43 @@
       </div>
 
       <script>
-        fetch('https://api.github.com/users/lasmate/repos?sort=updated&per_page=3')
-          .then(response => response.json())
-          .then(data => {
+        async function fetchRepos() {
+          try {
+        const response = await fetch('https://api.github.com/users/lasmate/repos?sort=updated&per_page=3');
+        const repos = await response.json();
         const repoList = document.getElementById('repo-list');
-        data.forEach(repo => {
+
+        for (const repo of repos) {
           const listItem = document.createElement('li');
           listItem.innerHTML = `
-            <a href="${repo.html_url}" target="_blank">${repo.name}</a>: ${repo.description}<br>
-            Last updated: ${new Date(repo.updated_at).toLocaleString()}
+            <div style="background-color: grey; border-radius: 10px; padding: 10px; margin-bottom: 15px;">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
+          <a href="${repo.html_url}" target="_blank">${repo.name}</a>: ${repo.description}<br>
+          Last updated: ${new Date(repo.updated_at).toLocaleString()}
+            </div>
           `;
           repoList.appendChild(listItem);
-        });
-          })
-          .catch(error => console.error('Error fetching repos:', error));
-            </script>
-       
 
+          const readmeResponse = await fetch(`https://api.github.com/repos/lasmate/${repo.name}/readme`, {
+            headers: { Accept: 'application/vnd.github.v3.html' }
+          });
 
-    </article>
+          if (readmeResponse.ok) {
+            const readmeHtml = await readmeResponse.text();
+            const readmeDiv = document.createElement('div');
+            readmeDiv.innerHTML = readmeHtml;
+            readmeDiv.style.marginTop = '10px';
+            listItem.appendChild(readmeDiv);
+          }
+        }
+          } catch (error) {
+        console.error('Error fetching repos:', error);
+          }
+        }
+
+        fetchRepos();
+      </script>
+        </article>
   </div>
 </body>
 <footer>
