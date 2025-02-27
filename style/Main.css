@@ -2,10 +2,9 @@ html, body{
     padding: 0;
 	margin: 0;
     height: 130vh;
-    
 	font-family: 'genos', sans-serif;    color: whitesmoke;
 	background-color: #000;
-	text-shadow:5px 5px 20px #c92fc9;
+	/* text-shadow:5px 5px 20px #c92fc9; */
     
     /*linear-gradient(to bottom, #66ffff 0%, #ff99cc 75%);*/
 }
@@ -47,6 +46,7 @@ html, body{
 }
 #intro{
     padding: 1%;
+	font-size: 20px
 }
 h1{
     position: relative;
@@ -62,10 +62,6 @@ a{
 
 li{
     margin-top: 1%;
-}
-footer{
-    position: center;
-	background-color: #000;
 }
 
 
@@ -113,6 +109,7 @@ table{
 	padding-right: 2vh;
 	border-bottom: black;
 	border-bottom-width: 5px;
+	font-size: .8em;
 	color: wheat;
 	cursor: pointer;
 }
