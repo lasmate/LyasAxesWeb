@@ -1,4 +1,3 @@
-
 // Constants for better maintainability
 const CACHE_DURATION = 3600000; // 1 hour in milliseconds
 const GITHUB_USERNAME = 'lasmate';
@@ -124,10 +123,10 @@ async function renderRepos(repos, languagesCache) {
 
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-        <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;" class="repo-card">
-          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="border-radius:20px;width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>: ${repo.description || 'No description available'}<br>
-          <span style="color: #8b949e; font-size: 0.9em;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</span><br>
+        <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
+          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="font-weight: thin; font-size: 1.5em;">${repo.name} :</a><br> ${repo.description || 'No description available'}<br>
+          <div style="color: #8b949e; font-size: 0.9em;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</div><br>
           Last updated: ${new Date(repo.updated_at).toLocaleString()}<br>
           <div class="github-embed" style="margin-top: 10px;">
             <iframe 
@@ -139,21 +138,12 @@ async function renderRepos(repos, languagesCache) {
               title="${repo.name} GitHub Stars"
               loading="lazy">
             </iframe>
-            <iframe 
-              src="https://ghbtns.com/github-btn.html?user=${GITHUB_USERNAME}&repo=${repo.name}&type=watch&count=true&size=large&v=2" 
-              frameborder="0" 
-              scrolling="0" 
-              width="170" 
-              height="30" 
-              title="${repo.name} GitHub Watchers"
-              loading="lazy">
-            </iframe>
           </div>
         </div>
       `;
       fragment.appendChild(listItem);
     } catch (error) {
-      console.error(`Error processing repo ${repo.name}:`, error);
+      console.error(`Error processing repo "${repo.name}" (URL: ${repo.html_url}): ${error.message}\nStack Trace:`, error.stack);
       const errorItem = document.createElement('li');
       errorItem.innerHTML = `
         <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
@@ -181,6 +171,7 @@ function clearGitHubCache(reload = true) {
   localStorage.removeItem(CACHE_KEYS.REPOS);
   localStorage.removeItem(CACHE_KEYS.TIMESTAMP);
   localStorage.removeItem(CACHE_KEYS.LANGUAGES);
+  localStorage.removeItem(CACHE_KEYS.VERSION); // Clear cache version
   if (reload) {
     fetchRepos();
   }
