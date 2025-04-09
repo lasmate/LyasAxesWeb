@@ -81,18 +81,16 @@
 
     <script src="scripts/scrollindic.js"></script>
     <script src="scripts/scroll.js"></script>
-</head>
-
-<body class="crt">
-
-<div ></div>
-<script>
+    <script>
     document.addEventListener('mousemove', function(e) {
         var cursor = document.getElementById('customCursor');
         cursor.style.left = e.pageX + 'px';
         cursor.style.top = e.pageY + 'px';
     });
 </script>
+</head>
+
+<body class="crt">
 
 <div class="flex-container">
     <div class="flex-nav"> <span onclick="location.href='index.html'">Home</span></div>
@@ -101,9 +99,8 @@
     <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
 </div>
 <div id="hero-lightpass">
-    <div style="position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%); font-family: 'Genos'; font-size: 3vw; color: white;">
-        <p class="bubble">< Light becons the way ></p>
-    </div>
+    <span id="bubble"style="position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%); font-family: 'Genos'; font-size: 3vw; color: white;" >THE LIGHT BECONS THE WAY</span>
+    
     <img src="img/downarrow.svg" class="downarrow" id="downarrow1">
     <img src="img/downarrow.svg" class="downarrow" id="downarrow2">
 </div>
