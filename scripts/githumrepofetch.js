@@ -77,7 +77,7 @@ async function fetchRepos() {
   } catch (error) {
     console.error('Error fetching repos:', error);
     repoList.innerHTML = `<li><div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
+      <img   src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="border-radius:10px; width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
       <span>${error.message || 'Error fetching repos. Please try again later.'}</span>
       <button onclick="clearGitHubCache()" style="margin-left: 15px; background: #0D1117; border: 1px solid #30363D; color: #c9d1d9; padding: 3px 8px; border-radius: 6px; cursor: pointer;">Retry</button>
     </div></li>`;
@@ -125,7 +125,7 @@ async function renderRepos(repos, languagesCache) {
       const listItem = document.createElement('li');
       listItem.innerHTML = `
         <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;" class="repo-card">
-          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="border-radius:20px;width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
           <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>: ${repo.description || 'No description available'}<br>
           <span style="color: #8b949e; font-size: 0.9em;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</span><br>
           Last updated: ${new Date(repo.updated_at).toLocaleString()}<br>
