@@ -11,6 +11,57 @@ body {
 
 }
 
+#site-content {
+	min-height: 100vh;
+	padding-top: 2vh;
+	position: relative;
+	z-index: 2;
+	-webkit-box-shadow: #000 0 7px 35px 0;
+	-moz-box-shadow: #000 0 7px 35px 0;
+	box-shadow: #000 0 7px 35px 0;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/background\ CV.jpg);
+}
+
+#site-footer {
+	padding: 25px 0;
+	font-size: 100%;
+	background-color: #2A2A2A;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	min-height: 20vh ;
+
+	background-size: cover;
+	background-position:top ;
+	background-image: url(../img/Destiny.png);
+}
+#intro{
+	padding: 1%;
+	font-size: 20px;
+}
+h1{
+    position: relative;
+    padding-left: 20%;
+}
+h2{
+    padding-left: 2%;
+}
+a{
+    color: bisque;
+    font-style:italic;
+}
+
+li{
+    margin-top: 1%;
+}
+
+
+
 /* Nav bar */
 .flex-container {
 	display: flex;
@@ -36,6 +87,46 @@ body {
 }
 .flex-nav:hover {
 	background-color: rgba(86, 27, 86, 0.538);
+}
+
+
+
+
+
+
+/* Carousel CSS */
+.hdcarousel_wrapper {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	position: relative;
+}
+.hdcarousel {
+	position:relative;
+	overflow-x: clip;
+}
+.hdcarousel_item {
+	position:absolute;
+	padding: 2rem;
+	border-radius: 12px;
+	border: 1px solid #999;
+	background: #eee;
+	top: 0;
+	transition:all ease-in-out 800ms;
+	
+}
+
+#Status{
+	text-align: right;
+	text-decoration: solid;
+}
+.Dropped{
+	color: red;
+}
+.Completed{
+	color: greenyellow;
+}
+.InPro{
+	color: darkcyan;
 }
 
 
