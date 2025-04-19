@@ -2,7 +2,8 @@ html, body{
     padding: 0;
 	margin: 0;
     height: 130vh;
-	font-family: 'genos', sans-serif;    color: whitesmoke;
+	font-family: 'genos', sans-serif;
+	color: whitesmoke;
 	background-color: #000;
 	/* text-shadow:5px 5px 20px #c92fc9; */
     
@@ -115,4 +116,24 @@ table{
 }
 .flex-nav:hover {
 	background-color: rgba(86, 27, 86, 0.538);
+}
+/* Carousel CSS */
+.hdcarousel_wrapper {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	position: relative;
+}
+.hdcarousel_wrapper {
+	position:relative;
+	overflow-x: clip;
+}
+.hdcarousel_item {
+	position:absolute;
+	padding: 2rem;
+	border-radius: 12px;
+	border: 1px solid #999;
+	background: #eee;
+	top: 0;
+	transition:all ease-in-out 800ms;
+	
 }
