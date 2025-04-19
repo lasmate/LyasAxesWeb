@@ -114,21 +114,30 @@ li{
 
 
 
-
-table{
-	width:98%;
+table {
+	width: 98%;
 	border-radius: 12px;
-	border-color:rgb(255, 255, 255);
-	border-style:groove;
+	border-color: rgb(255, 255, 255);
+	border-style: groove;
+	table-layout: fixed;
+}
 
-	margin-left: 1%;
-	padding-left: 5px;
+
+table th:first-child,
+table td:first-child {
+	width: 20%; /* Force minimum width */
+	
+	background-color:#3c393d7b;
+	border-radius: 16px;
+	font-size: larger;
+	
 }
+table td{
+height:15vh;}
+
+
 #Status{
-#Status{
-	text-align: right;
-	text-decoration: none;
-}
+
 	color: red;
 }
 .Completed{
