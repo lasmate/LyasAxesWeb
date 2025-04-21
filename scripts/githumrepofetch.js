@@ -123,10 +123,10 @@ async function renderRepos(repos, languagesCache) {
 
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-        <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
+        <div style="background-color: rgb(53,53,53); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
-          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="font-weight: thin; font-size: 1.5em;">${repo.name} :</a><br> ${repo.description || 'No description available'}<br>
-          <div style="color: #8b949e; font-size: 0.9em;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</div><br>
+          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="font-weight: thin; font-size: large;">${repo.name} :</a><br> ${repo.description || 'No description available'}<br>
+          <div style="color: rgb(217,217,217); font-size: larger;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</div><br>
           Last updated: ${new Date(repo.updated_at).toLocaleString()}<br>
           <div class="github-embed" style="margin-top: 10px;">
             <iframe 
@@ -146,7 +146,7 @@ async function renderRepos(repos, languagesCache) {
       console.error(`Error processing repo "${repo.name}" (URL: ${repo.html_url}): ${error.message}\nStack Trace:`, error.stack);
       const errorItem = document.createElement('li');
       errorItem.innerHTML = `
-        <div style="background-color: rgb(11,52,79); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
+        <div style="background-color:rgb(53,53,53); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
           <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>: ${error.message}
         </div>

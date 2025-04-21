@@ -42,7 +42,7 @@ class HDcarousel{
         await this.build();
         setInterval(() => {
             this.next();
-        }, 5000);
+        }, 6000);
     }
 
     async getSize(){

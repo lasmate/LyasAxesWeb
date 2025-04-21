@@ -32,7 +32,6 @@ html, body{
 	right: 0;
 	bottom: 0;
 	min-height: 20vh ;
-
 	background-size: cover;
 	background-position:top ;
 	background-image: url(../img/Destiny.png);
@@ -49,15 +48,12 @@ h2{
     padding-left: 2%;
 }
 a{
-    color: bisque;
+    color: rgb(217,217,217);
     font-style:italic;
 }
-
 li{
     margin-top: 1%;
 }
-
-
 
 
 .flex-container {
@@ -90,15 +86,9 @@ li{
 
 
 
-
-
 /* Carousel CSS */
-.hdcarousel_wrapper {
-	
-
-	
+.hdcarousel_wrapper {	
 	display: grid;
-	
 	position: relative;
 }
 .hdcarousel {
@@ -110,29 +100,29 @@ li{
 	position:absolute;
 	padding: 0;
 	object-fit: cover;
-	height: 300px;
+	height: 275px;
 	border-radius: 14px;
 	border: 1px groove #b9bec2d3;
 	background: #eeeeee00;
 	top: 0;
 	transition:all ease-in-out 800ms;
-	;margin-left: .5vw;
+	margin-left: .5vw;
 }
 
 
 
 table {
+	margin-left: .75vw;
 	width: 98%;
 	border-radius: 12px;
-	border-color: rgb(255, 255, 255);
+	border-color: rgb(217, 217, 217);
 	border-style: groove;
 	table-layout: fixed;
 }
 
-
-
 table th:first-child,
 table td:first-child {
+	padding-left: 1vw;
 	width: 15%; /* Force minimum width */
 	
 	background-color:#3c393d7b;
@@ -141,9 +131,7 @@ table td:first-child {
 	
 }
 
-
-
-#Status{
+.Dropped{
 
 	color: red;
 }
