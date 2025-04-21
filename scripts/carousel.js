@@ -2,23 +2,36 @@ class HDcarousel{
     version = 0.1;
     el = null;
     items=[];
-    size =2;
-    gap = 20;//margin between items
+    size =1.8;
+    gap = 25;//margin between items
     item = {
         width:0,
         gap:0,
         left:0,
     }
  
-    constructor(el ){
+    constructor(selector){
         console.log("HDcarousel v" + this.version + " init")
-
-        this.el = el
-        this.items = el.getElementsByClassName("hdcarousel_item")
-
+        if (typeof selector === 'string') {
+            this.el = document.querySelector(selector);
+        } else {
+            this.el = selector; // If an element is directly passed
+        }
+        
+        if (!this.el) {
+            console.error("Could not find element with selector:", selector);
+            return;
+        }
+        
+        this.items = this.el.getElementsByClassName("hdcarousel_item");
+        
+        if (this.items.length === 0) {
+            console.error("No carousel items found in:", selector);
+            return;
+        }
 
         this.init();
-        console.log(this)
+        console.log(this);
     }
 
     async init(){
@@ -73,5 +86,19 @@ class HDcarousel{
     }
 }
 
-const el= document.getElementById("carousel_1")
-new HDcarousel(el);
+// Initialize all carousels on the page
+document.addEventListener('DOMContentLoaded', () => {
+    // Find all carousel containers
+    const carousels = document.querySelectorAll('.hdcarousel');
+    
+    // Initialize each carousel
+    carousels.forEach((carousel, index) => {
+        new HDcarousel(carousel);
+    });
+    
+    // For backward compatibility, also initialize #carousel_1 if it exists
+    const legacyCarousel = document.getElementById("carousel_1");
+    if (legacyCarousel && !legacyCarousel.classList.contains('hdcarousel')) {
+        new HDcarousel(legacyCarousel);
+    }
+});

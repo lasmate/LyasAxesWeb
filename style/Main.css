@@ -94,17 +94,23 @@ li{
 
 /* Carousel CSS */
 .hdcarousel_wrapper {
+	margin-left: 10px;
+
+	
 	display: grid;
-	grid-template-rows: 1fr 1fr;
+	
 	position: relative;
 }
-.hdcarousel_wrapper {
+.hdcarousel {
+	
 	position:relative;
 	overflow-x: clip;
 }
 .hdcarousel_item {
 	position:absolute;
-	padding: 0.4rem;
+	padding: 0;
+	object-fit: cover;
+	height: 300px;
 	border-radius: 14px;
 	border: 1px groove #999;
 	background: #eee;
@@ -123,17 +129,17 @@ table {
 }
 
 
+
 table th:first-child,
 table td:first-child {
-	width: 20%; /* Force minimum width */
+	width: 15%; /* Force minimum width */
 	
 	background-color:#3c393d7b;
 	border-radius: 16px;
 	font-size: larger;
 	
 }
-table td{
-height:15vh;}
+
 
 
 #Status{
