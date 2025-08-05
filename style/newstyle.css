@@ -337,7 +337,7 @@ li{
 		animation: textShadow 1.6s infinite;
 	}
 	/* Mobile layout  */
-	@media (max-width: 650px) {
+	@media (max-width: 400px) {
 		body{
 			height: 100vh;
 		}
