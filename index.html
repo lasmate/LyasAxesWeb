@@ -6,101 +6,32 @@
     <title>Lya's Landing</title>
     <link href="style/newstyle.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
-    <script type="text/javascript">
-        // <![CDATA[
-        var bgcolour="#ffffff"; // background colour
-        var fgcolour="#6600cc"; // foreground colour
-        var speed=80; // speed of bubbling, lower is faster
-        var shades=12; // number of shades of bubble
-        
-        /****************************
-        *    Bubbling Text Effect   *
-        *(c)2003-13 mf2fm web-design*
-        *  http://www.mf2fm.com/rv  *
-        * DON'T EDIT BELOW THIS BOX *
-        ****************************/
-        var bubbcol=new Array();
-        var bubbshd;
-        var bubbler, bubbtxt;
-        var bubbchr=new Array();
-        
-        function addLoadEvent(funky) {
-          var oldonload=window.onload;
-          if (typeof(oldonload)!='function') window.onload=funky;
-          else window.onload=function() {
-            if (oldonload) oldonload();
-            funky();
-          }
-        }
-        
-        addLoadEvent(bubbagump);
-        
-        function bubbagump() { if (document.getElementById) {
-          var i, fg, bg, col;
-          for (bubbler=0; bubbler<=shades; bubbler++) {
-            col="#";
-            for (i=1; i<6; i+=2) {
-              bg=parseInt(bgcolour.substring(i,i+2),16);
-              fg=parseInt(fgcolour.substring(i,i+2),16);
-              col+=dechex(bg+(fg-bg)*(bubbler/shades));
-            }
-            bubbcol[bubbler+1]=col;
-            if (bubbler==Math.floor(shades/2)) bubbshd=col;
-          }
-          bubbler=document.getElementById("bubble");
-          bubbtxt=bubbler.firstChild.nodeValue;
-          while (bubbler.childNodes.length) bubbler.removeChild(bubbler.childNodes[0]);
-          for (i=0; i<bubbtxt.length; i++) {
-            fg=document.createElement("span");
-            fg.setAttribute("id", "bubb"+i);
-            fg.style.textShadow=bubbshd+" 0px 0px 2px";
-            fg.appendChild(document.createTextNode(bubbtxt.charAt(i)));
-            bubbler.appendChild(fg);
-          }
-          bubbler=setInterval("bubbling()", speed);
-        }}
-        
-        function dechex(dec) {
-          dec=Math.floor(dec);
-          return ((dec<16)?'0':'')+dec.toString(16);
-        }
-        
-        function bubbling() {
-          var i, bubby;
-          for (i=0; i<bubbtxt.length; i++) {
-            bubby=document.getElementById("bubb"+i);
-            if (bubbchr[i]) {
-              bubby.style.color=bubbcol[bubbchr[i]];
-              bubbchr[i]=(bubbchr[i]+1)%bubbcol.length;
-            }
-            else if (Math.random()<7.5/(shades*bubbtxt.length)) bubbchr[i]=1;
-          }
-        }
-        // ]]>
-        </script>
-
-    <!-- <script src="scripts/scrollindic.js"></script>
-    <script src="scripts/scroll.js"></script> -->
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="icon" href="img/TraFavicon.png" type="image/x-icon">
 </head>
 
 <body class="crt">
 
-<div class="flex-container">
-    <div class="flex-nav"> <span onclick="location.href='index.html'">Acceuil</span></div>
-    <div class="flex-nav"> <span >Mes Production
-    <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Programmation </span></div>
-    <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div> 
-    </span></div>
-    <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
-      <div class="flex-nav"> <span onclick="location.href='Pages/Tableau de competence.html'">Tableau de competence</span></div>
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="flex-container">
+        <div class="flex-nav"> <span onclick="location.href='index.html'">Acceuil</span></div>
+        <div class="flex-nav"> <span >Mes Production
+        <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Programmation </span></div>
+        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div> 
+        </span></div>
+        <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
+          <div class="flex-nav"> <span onclick="location.href='Pages/Tableau de competence.html'">Tableau de competence</span></div>
+          
+    </div>
 
-</div>
+    <div class="site-content" style="position: relative; overflow: hidden; min-height: 50vh;">
+      <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+        <source src="videos/28per-half-light-rndr.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
 
-<div class="site-content">
-  <video autoplay muted loop style="height:100vh; width: 100vw;">
-    <source src="videos/suitroom new texture .mp4" >
-    Your browser does not support the video tag.
-  </video>
+    </div>
+  </div>
 </div>
 </html>

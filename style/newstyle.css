@@ -9,7 +9,41 @@ body {
 	/* 500 for old v2 gates */
 	background: #000000;
 	font-family: 'genos', sans-serif;
+}
 
+/* New container styles for rounded box with shadow */
+.page-container {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2vh 2vw;
+	box-sizing: border-box;
+}
+
+.content-wrapper {
+	width: 100%;
+	height: 100%;
+	max-width: 90vw;
+	max-height: 90vh;
+	background: rgba(0, 0, 0, 0.8);
+	border-radius: 20px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 
+				0 0 20px rgba(221, 160, 221, 0.3),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(221, 160, 221, 0.2);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.site-content {
+	position: relative;
+	z-index: 1;
+	border-radius: 0 0 20px 20px;
+	overflow: hidden;
 }
 
 #site-content {
@@ -73,8 +107,10 @@ li{
 	color: wheat;
 	font-size: 2em;
 	background-color: rgba(221, 160, 221, 0.538);
-	position: fixed;
+	border-radius: 20px 20px 0 0;
 	width: 100%;
+	min-height: 60px;
+	flex-shrink: 0;
 }
 .flex-nav {
 	align-items:center;
@@ -319,7 +355,7 @@ li{
 		opacity: 0;
 		z-index: 2;
 		pointer-events: none;
-		animation: flicker 0.15s infinite;
+		animation: flicker 10s infinite;
 	}
 	.crt::before {
 		content: " ";
@@ -335,12 +371,21 @@ li{
 		pointer-events: none;
 	}
 	.crt {
-		animation: textShadow 1.6s infinite;
+		animation: textShadow 6s infinite;
 	}
 	/* Mobile layout  */
 	@media (max-width: 400px) {
 		body{
 			height: 100vh;
+			font-size:x-large
+		}
+		.page-container {
+			padding: 1vh 1vw;
+		}
+		.content-wrapper {
+			max-width: 98vw;
+			max-height: 98vh;
+			border-radius: 15px;
 		}
 		#downarrow1 {
 			display: none;
@@ -350,9 +395,12 @@ li{
 		}
 		.flex-container {
 			flex-direction: column;
-			height: 100%;
+			height: auto;
 			background-color: rgb(221, 160, 221);
-			/*position: relative;
-			margin-top: 20vh;*/
+			border-radius: 15px 15px 0 0;
+			font-size: 1.5em;
+		}
+		.site-content {
+			display: none;
 		}
 	}
