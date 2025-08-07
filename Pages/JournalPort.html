@@ -1,58 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Axing of Lya</title>
+    <link href="../style/newstyle.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
-    <link href="../style/Main.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="icon" href="../img/TraFavicon.png" type="image/x-icon">
     <script src="../scripts/footer.js"></script>
   </head>  
-  <body>
-    <div id="site-content">
-    <h1>Lya Lasvenes's Public Journal</h1>
-    <p id="intro">This is My public personal Journal!<br>Here i regularly post about new things i discover, milestones i achieve, shower toughts,things ive done , and places i've been <br><br>To acess other pages scroll down to reveal the navigation Menu </p>
-      <article>
-        <h2>Last Entry</h2>
-        <div id="journal">
-          <ul id="journal-list">
-            <!-- Add more entries as needed -->
 
+<body>
 
-            
-            <li>  
-              <h4>2025-05-01</h4>
-              <h2>INTERNSHIPS</h2>
-              <p>got confirmation for 2 internships so thats pretty sick, i did a quick template and seems like the client relly liked it during the interiew so its basically go time , thatswhay im going to spend my nextt 2 weeks on </p>
-            </li>
-            <li>
-              <h4>2025-04-21</h4>
-              <h2>Portfolio refactor</h2>
-              <p> i decided it was time to give a bit of a coat of fresh pain to the 3d portfolio part of the website , i added a basic js oop carousel efect to displau multiple extrac of a same project and mde it compatible for future projects</p>
-            </li>
-            <li>
-              <h4>2025-04-10</h4>
-              <h2>My first desktop app</h3>
-              <h3>got fed up of non flexible pomodoro timers</h3>
-              <p>i basically got fed up of all the pomodoro timers ive tried before so i basically just built one.</p>
-              <p>to challenge myself i wanted to make it outside of a cli for the first time and i wanted to practice rust so i used slint and their rust backend, i feel like i learned a decent bit and this makes my first actual desktop app, you can find it on my github page as minipomo</p>
-            </li>
-          </ul>
-      </article>
-    </div> 
-  </body>
-  <footer>
-    <div id="site-footer">
-          <div class="flex-container">
-            <div class="flex-nav"> <span onclick="location.href='../index.html'">Home</span></div>
-            <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Code portfolio</span></div>
-            <div class="flex-nav"> <span onclick="location.href='3DPort.html'">3D portfolio</span></div>
-            <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
-          <div class="flex-nav"> <span onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
-
-          </div>
+<div class="page-container" style="height: 100vh; overflow: hidden;">
+  <div class="content-wrapper" style="height: 100vh; overflow-y: auto;">
+    <div class="flex-container">
+        <div class="flex-nav"> <span onclick="location.href='../index.html'">Acceuil</span></div>
+        <div class="flex-nav"> <span >Mes Production
+        <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Programmation </span></div>
+        <div class="flex-nav"> <span onclick="location.href='3DPort.html'">Modelisation<space> 3D </span></div> 
+        </span></div>
+        <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
+        <div class="flex-nav"> <span onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
     </div>
-  </footer>
+
+    <div class="site-content" style="padding: 20px; color: whitesmoke; box-shadow: #000 0 7px 35px 0;">
+      <h1>Lya Lasvenes's Public Journal</h1>
+      <p id="intro">This is My public personal Journal!<br>Here i regularly post about new things i discover, milestones i achieve, shower toughts,things ive done , and places i've been <br><br></p>
+        <article>
+          <h2>Last Entry</h2>
+          <div id="journal">
+            <ul id="journal-list">
+              <!-- Add more entries as needed -->
+
+              <li>  
+                <h4>2025-05-01</h4>
+                <h2>INTERNSHIPS</h2>
+                <p>got confirmation for 2 internships so thats pretty sick, i did a quick template and seems like the client relly liked it during the interiew so its basically go time , thatswhay im going to spend my nextt 2 weeks on </p>
+              </li>
+              <li>
+                <h4>2025-04-21</h4>
+                <h2>Portfolio refactor</h2>
+                <p> i decided it was time to give a bit of a coat of fresh pain to the 3d portfolio part of the website , i added a basic js oop carousel efect to displau multiple extrac of a same project and mde it compatible for future projects</p>
+              </li>
+              <li>
+                <h4>2025-04-10</h4>
+                <h2>My first desktop app</h3>
+                <h3>got fed up of non flexible pomodoro timers</h3>
+                <p>i basically got fed up of all the pomodoro timers ive tried before so i basically just built one.</p>
+                <p>to challenge myself i wanted to make it outside of a cli for the first time and i wanted to practice rust so i used slint and their rust backend, i feel like i learned a decent bit and this makes my first actual desktop app, you can find it on my github page as minipomo</p>
+              </li>
+            </ul>
+        </article>
+    </div>
+  </div>
+</div>
+</body>
 </html>
 
  

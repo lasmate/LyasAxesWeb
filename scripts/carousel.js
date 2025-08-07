@@ -27,12 +27,24 @@ constructor(selector){
         return;
     }
     
+    // Set carousel to match its wrapper's width and prevent overflow
+    this.el.style.width = '100%';
+    this.el.style.overflow = 'hidden';
+    
     this.items = this.el.getElementsByClassName("hdcarousel_item");
+    
+    // If no hdcarousel_item found, also look for hdcarousel_item_idle
+    if (this.items.length === 0) {
+        this.items = this.el.querySelectorAll(".hdcarousel_item, .hdcarousel_item_idle");
+    }
     
     if (this.items.length === 0) {
         console.error("No carousel items found in:", selector);
         return;
     }
+
+    // Set size based on actual number of items (but keep minimum display of 1)
+    this.size = Math.max(1, Math.min(3, this.items.length));
 
     this.init();
     console.log(this);
@@ -42,15 +54,69 @@ constructor(selector){
  * Initializes the carousel by setting dimensions and preparing the initial display
  */
 async init(){
+    // Wait for all video elements to be ready
+    await this.waitForMediaLoad();
+    
     this.item.width = await this.getSize();
     this.el.style.height = this.items[0].clientHeight + "px";
 
-    await this.clone("next");
-    await this.build();
-    // Set up automatic sliding every 8 seconds
-    setInterval(() => {
-        this.next();
-    }, 8000);
+    // Only initialize carousel behavior if there are multiple items
+    if (this.items.length > 1) {
+        await this.clone("next");
+        await this.build();
+        // Set up automatic sliding every 8 seconds
+        setInterval(() => {
+            this.next();
+        }, 8000);
+    } else {
+        // For single items, just position them statically
+        await this.buildStatic();
+    }
+    
+    // Show the carousel now that it's properly initialized
+    this.el.style.opacity = '1';
+    this.el.style.visibility = 'visible';
+    this.el.style.transition = 'opacity 0.3s ease-in-out';
+}
+
+/**
+ * Wait for all media elements (videos/images) to be loaded and have dimensions
+ */
+async waitForMediaLoad() {
+    const mediaElements = Array.from(this.items).filter(item => 
+        item.tagName === 'VIDEO' || item.tagName === 'IMG'
+    );
+    
+    if (mediaElements.length === 0) return;
+    
+    const promises = mediaElements.map(media => {
+        return new Promise((resolve) => {
+            if (media.tagName === 'VIDEO') {
+                if (media.videoWidth > 0 && media.videoHeight > 0) {
+                    resolve();
+                } else {
+                    media.addEventListener('loadedmetadata', resolve, { once: true });
+                    // Fallback timeout
+                    setTimeout(resolve, 1000);
+                }
+            } else if (media.tagName === 'IMG') {
+                if (media.complete && media.naturalWidth > 0) {
+                    resolve();
+                } else {
+                    media.addEventListener('load', resolve, { once: true });
+                    // Fallback timeout
+                    setTimeout(resolve, 1000);
+                }
+            } else {
+                resolve();
+            }
+        });
+    });
+    
+    await Promise.all(promises);
+    
+    // Additional small delay to ensure rendering is complete
+    await new Promise(resolve => setTimeout(resolve, 100));
 }
 
 /**
@@ -58,26 +124,53 @@ async init(){
  * @returns {number} The calculated width for each item with gap considerations
  */
 async getSize(){
-    let w = this.el.clientWidth;
-    w = w / this.size;
-    let diff= this.gap * this.size ;
-    w = w - diff;
-    return w;
+    // Get the wrapper's width instead of the carousel's width
+    const wrapper = this.el.parentElement;
+    let containerWidth = wrapper ? wrapper.clientWidth : this.el.clientWidth;
+    
+    // Make sure carousel uses full wrapper width
+    this.el.style.width = '100%';
+    
+    // For single items, use the full wrapper width minus padding
+    if (this.items.length === 1) {
+        this.gap = 0;
+        const itemWidth = containerWidth - 20; // Leave some padding
+        return itemWidth;
+    }
+    
+    // For multi-item carousels, calculate spacing to fit within wrapper
+    this.gap = Math.max(containerWidth * 0.015, 10); // 1.5% of wrapper width, minimum 10px
+    
+    // Calculate individual item width to fit within the wrapper
+    const availableWidth = containerWidth - (this.gap * (this.size - 1));
+    const baseItemWidth = availableWidth / this.size;
+    
+    console.log(`Carousel ${this.el.id}: wrapper=${containerWidth}px, items=${this.items.length}, itemWidth=${baseItemWidth}px, gap=${this.gap}px`);
+    
+    return baseItemWidth;
 }
 
 /**
  * Positions all carousel items horizontally with proper spacing
  */
 async build(){
-    let l=this.items.length*-1
+    let l = 0; // Start from left edge
     for (let i = 0; i < this.items.length; i++){
         this.items[i].style.width = this.item.width + "px";
         this.items[i].style.left = l + "px";
-        l = l + this.item.width 
-        if (i >0){
-            l=l + this.gap;
+        l = l + this.item.width;
+        if (i < this.items.length - 1){ // Add gap except after the last item
+            l = l + this.gap;
         }
     }
+}
+
+/**
+ * Positions single carousel item statically (no movement)
+ */
+async buildStatic(){
+    this.items[0].style.width = this.item.width + "px";
+    this.items[0].style.left = "0px"; // Align to the left edge
 }
 
 /**
@@ -106,9 +199,12 @@ async clone(pos="prev"){
  * Advances the carousel to the next slide by cloning and rebuilding
  */
 async next(){
-    await this.clone("next");
-    await this.build();
+    // Only advance if there are multiple items
+    if (this.items.length > 1) {
+        await this.clone("next");
+        await this.build();
     }
+}
 }
 
 // Initialize all carousels on the page
