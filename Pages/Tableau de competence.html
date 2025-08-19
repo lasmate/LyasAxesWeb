@@ -31,14 +31,67 @@
           Voici le tableau de compétences que j'ai pu remplir à ce jour, il est automatiquement mis à jour par la fonction publish de Google Sheets et contient les projets réalisés au cours de formation ainsi que dans le cadre de mes stages.
           <br><br>
       </p>
-        <article>
-          <iframe class="Tcompetence" style="height: 100vh; width: 106vw; transform: scale(0.8); transform-origin: 0 0;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKqzH9C4AMlFXOvPWDSghYsDz7rRk4oEvNG6n5F5-fb438q2XZUvxEsEcTX8hSeKd22O7B8rb3ER4B/pubhtml?gid=2094214806&amp;single=true&amp;widget=true&amp;headers=false">
+      <div id="zoom-control" aria-label="Sheet zoom controls" title="Zoom">
+            <button id="zc-decr" class="zc-btn">-</button>
+            <button id="zc-reset" class="zc-btn">/</button>
+            <button id="zc-incr" class="zc-btn">+</button>
+      </div>
+      <article>
+        <!-- Responsive wrapper: keeps the visible area at 80vh and scales the embedded sheet so it never requires horizontal scrolling -->
+        <div id="sheet-wrap" style="width:100%;height:80vh;overflow:hidden;">
+          <iframe id="sheet-iframe"
+                  data-natural-width="1600"
+                  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKqzH9C4AMlFXOvPWDSghYsDz7rRk4oEvNG6n5F5-fb438q2XZUvxEsEcTX8hSeKd22O7B8rb3ER4B/pubhtml?gid=2094214806&amp;single=true&amp;widget=true&amp;headers=false"
+                  frameborder="0"
+                  scrolling="yes"
+                  style="border:0; display:block; transform-origin:0 0; -webkit-transform-origin:0 0;">
           </iframe>
-        </article>
+        </div>
+        <style>
+          /* Allow page to behave normally vertically but prevent horizontal overflow */
+          html, body { width:100%; height:100%; margin:0; padding:0; overflow-x:hidden; }
+          .flex-container, .site-content { box-sizing:border-box; }
+          #sheet-wrap { overflow:hidden; }
+          #sheet-iframe { display:block; border:0; }
+        </style>
+
+        <script>
+          (function(){
+            const iframe = document.getElementById('sheet-iframe');
+            const wrap = document.getElementById('sheet-wrap');
+            const naturalWidth = parseInt(iframe.getAttribute('data-natural-width')) || 1600;
+
+            function resize(){
+              const containerW = wrap.clientWidth;
+              const containerH = wrap.clientHeight;
+              // scale so the iframe content width fits the container
+              let scale = containerW / naturalWidth;
+              // avoid scaling up beyond 1 (optional - prevents pixelation); remove Math.min if you want upscaling
+              scale = Math.min(scale, 1);
+
+              // set iframe intrinsic size (unscaled)
+              iframe.style.width = naturalWidth + 'px';
+              // set height so that after scaling it fills the wrapper (visible height = iframeHeight * scale)
+              const neededIframeH = Math.ceil(containerH / Math.max(scale, 0.0001));
+              iframe.style.height = neededIframeH + 'px';
+
+              // apply scale transform
+              iframe.style.transform = 'scale(' + scale + ')';
+              iframe.style.webkitTransform = 'scale(' + scale + ')';
+            }
+
+            // Run on load and resize
+            window.addEventListener('resize', resize);
+            window.addEventListener('orientationchange', resize);
+            // ensure initial sizing after everything loads
+            window.addEventListener('load', function(){ setTimeout(resize, 50); });
+          })();
+        </script>
+
+      </article>
     </div>
   </div>
 </div>
 </body>
 </html>
 
- 
