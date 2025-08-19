@@ -11,40 +11,8 @@ body {
 	font-family: 'genos', sans-serif;
 }
 
-iframe{
-            width:100%;
-            height:100vh;
-            overflow:hidden;
-            margin:0px;
-            padding:0px;
-            border:none;
-        }
-#zoom-control {
-  position: relative;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 6px;
-  border-radius: 8px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  z-index: 9999;
-  font-family: sans-serif;
-  font-size: 14px;
-}
-#zoom-control .zc-btn {
-  min-width: 34px;
-  height: 30px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-#zc-value { margin-left: 6px; min-width: 48px; text-align:center; }
-#zoom-control .zc-btn:active { transform: translateY(1px); }
-#zc-range { width: 110px; }
-/* New container styles for rounded box with shadow */
+
+/* SiteWide pretty container */
 .page-container {
 	min-height: 100vh;
 	display: flex;
@@ -74,7 +42,9 @@ iframe{
 }
 
 .site-content {
-	min-height: 100vh;
+	min-height: auto;
+	min-width: 0; /* prevent overflow in flex layouts */
+	flex: 0 0 auto;
 	padding-top: 2vh;
 	position: relative;
 	z-index: 2;
@@ -141,7 +111,66 @@ li{
 	background-color: rgba(86, 27, 86, 0.538);
 }
 
+/* Specific page related css */
 
+/* Journal */
+
+.journal{
+background-color: #594870cf;
+border-radius: 20px;
+}
+
+.journal-entry{
+	background-color: #392f49cf;
+	border-radius: 20px;
+	margin: 1%;
+	padding: 1%;
+}
+.journal-entry h2{
+	margin-bottom: 2.5em;
+}
+#J5{
+	background-color: #838675;
+	color:#293911;
+
+}
+#J5 p{
+	background-color: steelblue;
+	color: powderblue;
+	border-radius: 5px;
+	padding: 1%;
+}
+
+
+
+
+
+
+
+
+/* Tableau de competence */
+#zoom-control {
+  position: relative;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 9999;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+#zoom-control .zc-btn {
+  min-width: 34px;
+  height: 30px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 
 
@@ -203,12 +232,6 @@ table td:first-child {
 .InPro{
 	color: darkcyan;
 }
-
-
-
-
-
-
 
 
 /*### INDEX PAGE SPECIFIC ###*/
@@ -374,7 +397,7 @@ table td:first-child {
 		animation: textShadow 6s infinite;
 	}
 	
-	/* Mobile layout  */
+/* Mobile layout  */
 	@media (max-width: 600px) {
 		body{
 			height: 100vh;
