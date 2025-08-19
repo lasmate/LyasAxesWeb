@@ -1,0 +1,6 @@
+name,html_url,description,updated_at,languages
+"demo-website",https://example.com/demo-website,"A demo website showcasing layout and components.",2025-08-17T11:23:00Z,JavaScript:12000;HTML:4000;CSS:2000
+"widget-kit",https://example.com/widget-kit,"Reusable UI widgets used across projects.",2025-08-05T09:12:00Z,Python:15000;Jupyter Notebook:3000
+"data-samples",https://example.com/data-samples,"Sample datasets and processing scripts for prototyping.",2025-07-15T16:45:00Z,C#:8000;GLSL:2000
+"ux-components",https://example.com/ux-components,"Small UI components and patterns for rapid prototyping.",2025-08-12T08:30:00Z,TypeScript:10000;SCSS:2500;Shell:500
+"net-tools",https://example.com/net-tools,"Networking utilities and CLI helpers.",2025-06-21T14:05:00Z,Go:9000
