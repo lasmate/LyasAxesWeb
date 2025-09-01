@@ -61,24 +61,49 @@
             const wrap = document.getElementById('sheet-wrap');
             const naturalWidth = parseInt(iframe.getAttribute('data-natural-width')) || 1600;
 
+            // user-controlled zoom multiplier (1 = fit-to-width)
+            let userZoom = 1;
+            const ZOOM_STEP = 1.1; // multiply/divide by this
+            const ZOOM_MIN = 0.2;
+            const ZOOM_MAX = 4;
+
             function resize(){
               const containerW = wrap.clientWidth;
               const containerH = wrap.clientHeight;
-              // scale so the iframe content width fits the container
-              let scale = containerW / naturalWidth;
-              // avoid scaling up beyond 1 (optional - prevents pixelation); remove Math.min if you want upscaling
-              scale = Math.min(scale, 1);
+              // base scale so the iframe content width fits the container
+              let baseScale = containerW / naturalWidth;
+              // avoid scaling up beyond 1 (prevents pixelation)
+              baseScale = Math.min(baseScale, 1);
+
+              const combinedScale = Math.max(baseScale * userZoom, 0.0001);
 
               // set iframe intrinsic size (unscaled)
               iframe.style.width = naturalWidth + 'px';
-              // set height so that after scaling it fills the wrapper (visible height = iframeHeight * scale)
-              const neededIframeH = Math.ceil(containerH / Math.max(scale, 0.0001));
+              // set height so that after scaling it fills the wrapper (visible height = iframeHeight * combinedScale)
+              const neededIframeH = Math.ceil(containerH / combinedScale);
               iframe.style.height = neededIframeH + 'px';
 
               // apply scale transform
-              iframe.style.transform = 'scale(' + scale + ')';
-              iframe.style.webkitTransform = 'scale(' + scale + ')';
+              iframe.style.transform = 'scale(' + combinedScale + ')';
+              iframe.style.webkitTransform = 'scale(' + combinedScale + ')';
             }
+
+            // zoom control helpers
+            function setUserZoom(z){
+              userZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
+              resize();
+            }
+            function zoomIn(){ setUserZoom(userZoom * ZOOM_STEP); }
+            function zoomOut(){ setUserZoom(userZoom / ZOOM_STEP); }
+            function zoomReset(){ setUserZoom(1); }
+
+            // wire buttons
+            const btnDecr = document.getElementById('zc-decr');
+            const btnReset = document.getElementById('zc-reset');
+            const btnIncr = document.getElementById('zc-incr');
+            if(btnDecr) btnDecr.addEventListener('click', zoomOut);
+            if(btnReset) btnReset.addEventListener('click', zoomReset);
+            if(btnIncr) btnIncr.addEventListener('click', zoomIn);
 
             // Run on load and resize
             window.addEventListener('resize', resize);
