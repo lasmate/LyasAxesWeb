@@ -8,30 +8,83 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="icon" href="img/TraFavicon.png" type="image/x-icon">
+    <style>
+      /* Sliding WhoAmI panel */
+      #whoami {
+        cursor: pointer;
+        transition: transform 200ms ease;
+      }
+      .whoami-panel {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) translateY(110%);
+        bottom: 0;
+        width: min(85vw, 800px);
+        max-height: 80vh;
+        background: rgba(20,20,30,0.98);
+        color: #fff;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+        padding: 18px;
+        z-index: 99999;
+        transition: transform 320ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+        overflow:auto;
+        opacity: 0;
+        pointer-events: none;
+      }
+      /* hidden state */
+      .whoami-panel[aria-hidden="true"]{
+        opacity: 0;
+        pointer-events: none;
+      }
+      .whoami-panel.open {
+        transform: translateX(-50%) translateY(0%);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .whoami-panel .close-btn{
+        position: absolute; top: 8px; right: 12px; background:transparent; border:0; color:#fff; font-size:18px; cursor:pointer;
+      }
+      /*overflow scroll prevention */
+      body.panel-locked,
+      body.panel-locked .content-wrapper {
+        overflow: hidden !important;
+        touch-action: none;
+        -webkit-overflow-scrolling: auto;
+      }
+    </style>
 </head>
 
 <body class="crt">
-
 <div class="page-container">
   <div class="content-wrapper">
+    <div id="whoami-panel" class="whoami-panel" aria-hidden="true">
+      <button class="close-btn" aria-label="Close">✕</button>
+      <h2>About Lya</h2>
+    </div>
     <div class="flex-container">
         <div class="flex-nav"> <span onclick="location.href='index.html'">Acceuil</span></div>
-        <div class="flex-nav"> <span >Mes Production
+        <div class="flex-nav"> <span >Mes Productions
         <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Programmation </span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div> 
+        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div>
         </span></div>
         <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
-          <div class="flex-nav"> <span onclick="location.href='Pages/Tableau de competence.html'">Tableau de competence</span></div>
-          
+        <div class="flex-nav"> <span onclick="location.href='Pages/Tableau de competence.html'">Tableau de<br> competence</span></div>
     </div>
 
     <div class="site-content" style="position: relative; overflow: hidden; min-height: 65vh;">
       <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
-        <source src="videos/28per-half-light-rndr.mp4" type="video/mp4">
+        <source src="videos/v8.6-4k-newcomp.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-
+      <div id="whoami" style="position:absolute; bottom: 0%; right:50%;left: 50%; transform: translateX(-50%); z-index: 2;width: 20vw; height:8%; background-color: blueviolet;border-radius:20px 20px 0 0;">
+        <p style="font-size: 2em; text-align: center; color: white; padding: 0%;margin: 0%">WhoAmI</p>
+      </div>
     </div>
   </div>
 </div>
+
+  <!-- whoami panel moved into .content-wrapper to position relative to the card -->
+
+  <script src="scripts/whoami.js" defer></script>
 </html>
