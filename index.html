@@ -63,34 +63,34 @@
   <div class="content-wrapper">
     <div id="whoami-panel" class="whoami-panel" aria-hidden="true">
       <button class="close-btn" aria-label="Close">✕</button>
-      <h1>Hi, name's Lya Lasvenes</h1>
-      <h3>I'm a passionate student of Computer Science, and more precisely web development</h3>
-      <p>I've turned 25 this year.</p>
-      <p> I am currently pursuing my studies in web development. And am on track to get my degree in SIO (Services Informatiques aux Organisations) with the SLAM (Solutions Logicielles et Applications Métiers) option in the next year.</p>
-      <p>To see the technologies I work with, check out my <a href="Pages/CodePort.html">Programming Portfolio</a> and <a href="Pages/3DPort.html">3D Modeling Portfolio</a>.</p>
-      <p>i plan on specializing in front-end development as i continue my studies, and investing some time in 3D modeling to be able to collaborate with others in the field.</p>
-      <p>the use of 3d assets in the web-dev world is becoming increasingly important, and i want to be at the forefront of this trend who mixes my two passions.</p>
-      <p>I have plenty of hobbies, but if i had to make a top 5 it would be:</p>
+      <h1 data-i18n="whoami.h1">Hi, name's Lya Lasvenes</h1>
+      <h3 data-i18n="whoami.h3">I'm a passionate student of Computer Science, and more precisely web development</h3>
+      <p data-i18n="whoami.p1">I've turned 25 this year.</p>
+      <p data-i18n-html="whoami.p2"> I am currently pursuing my studies in web development. And am on track to get my degree in SIO (Services Informatiques aux Organisations) with the SLAM (Solutions Logicielles et Applications Métiers) option in the next year.</p>
+      <p data-i18n-html="whoami.p3">To see the technologies I work with, check out my <a href="Pages/CodePort.html">Programming Portfolio</a> and <a href="Pages/3DPort.html">3D Modeling Portfolio</a>.</p>
+      <p data-i18n="whoami.p4">i plan on specializing in front-end development as i continue my studies, and investing some time in 3D modeling to be able to collaborate with others in the field.</p>
+      <p data-i18n="whoami.p5">the use of 3d assets in the web-dev world is becoming increasingly important, and i want to be at the forefront of this trend who mixes my two passions.</p>
+      <p data-i18n="whoami.p6">I have plenty of hobbies, but if i had to make a top 5 it would be:</p>
       <ol>
-        <li>3d modelling & 3d printing</li>
-        <li>coding(mostly front end stuff)</li>
-        <li>Watching Anime</li>
-        <li>playing Story driven games</li>
-        <li>reading science fiction novels(Isaac Asimov my beloved<3 )</li>
+        <li data-i18n="whoami.hobby.1">3d modelling & 3d printing</li>
+        <li data-i18n="whoami.hobby.2">coding(mostly front end stuff)</li>
+        <li data-i18n="whoami.hobby.3">Watching Anime</li>
+        <li data-i18n="whoami.hobby.4">playing Story driven games</li>
+        <li data-i18n="whoami.hobby.5">reading science fiction novels(Isaac Asimov my beloved&lt;3 )</li>
       </ol>
       <p></p>
 
 
     </div>
-    <div class="flex-container">
-        <div class="flex-nav"> <span onclick="location.href='index.html'">Acceuil</span></div>
-        <div class="flex-nav"> <span >Mes Productions
-        <div class="flex-nav"> <span onclick="location.href='Pages/CodePort.html'">Programmation </span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div>
-        </span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Pages/Tableau de competence.html'">Tableau de<br> competence</span></div>
-    </div>
+  <div class="flex-container">
+    <div class="flex-nav"> <span data-i18n="nav.home" onclick="location.href='index.html'">Acceuil</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.products">Mes Productions
+      <div class="flex-nav"> <span data-i18n="nav.programming" onclick="location.href='Pages/CodePort.html'">Programmation </span></div>
+      <div class="flex-nav"> <span data-i18n="nav.3d" onclick="location.href='Pages/3DPort.html'">Modelisation<space> 3D </span></div>
+    </span></div>
+    <div class="flex-nav"> <span data-i18n="nav.journal" onclick="location.href='Pages/JournalPort.html'">Journal</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.table" onclick="location.href='Pages/Tableau de competence.html'">Tableau de<br> competence</span></div>
+  </div>
 
     <div class="site-content" style="position: relative; overflow: hidden; min-height: 78vh;">
       <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
@@ -104,4 +104,7 @@
   </div>
 </div>
   <script src="scripts/whoami.js" defer></script>
+  <script src="scripts/translations.js"></script>
+  <script src="scripts/i18n.js" defer></script>
+</body>
 </html>

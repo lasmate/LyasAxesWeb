@@ -15,21 +15,21 @@
 
 <div class="page-container" style="height: 100vh; overflow: hidden;">
   <div class="content-wrapper" style="height: 100vh; overflow-y: auto;">
-    <div class="flex-container">
-        <div class="flex-nav"> <span onclick="location.href='../index.html'">Acceuil</span></div>
-        <div class="flex-nav"> <span >Mes Productions
-        <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Programmation </span></div>
-        <div class="flex-nav"> <span onclick="location.href='3DPort.html'">Modelisation<space> 3D </span></div> 
-        </span></div>
-        <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
-    </div>
+  <div class="flex-container">
+    <div class="flex-nav"> <span data-i18n="nav.home" onclick="location.href='../index.html'">Acceuil</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.products">Mes Productions
+      <div class="flex-nav"> <span data-i18n="nav.programming" onclick="location.href='CodePort.html'">Programmation </span></div>
+      <div class="flex-nav"> <span data-i18n="nav.3d" onclick="location.href='3DPort.html'">Modelisation<space> 3D </span></div> 
+    </span></div>
+    <div class="flex-nav"> <span data-i18n="nav.journal" onclick="location.href='JournalPort.html'">Journal</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.table" onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
+  </div>
 
     <div class="site-content" style="padding: 20px;">
-      <h1>Lya Lasvenes's Public Journal</h1>
-      <p id="intro">This is My public personal Journal!<br>Here i regularly post about new things i discover, milestones i achieve, shower toughts,things ive done , and places i've been <br><br></p>
+      <h1 data-i18n="journal.h1">Lya Lasvenes's Public Journal</h1>
+      <p id="intro" data-i18n-html="journal.intro">This is My public personal Journal!<br>Here i regularly post about new things i discover, milestones i achieve, shower toughts,things ive done , and places i've been <br><br></p>
         <article>
-          <h2>Last Entry</h2>
+          <h2 data-i18n="journal.last">Last Entry</h2>
           <div class="journal">
             <ul class="journal-list">
               <!-- Entry template -->
@@ -48,7 +48,17 @@
               <!-- Add more entries as needed -->
               
 
-              
+              <li class="journal-entry" id="J6">
+                 <div style="position: relative;">
+                  <img 
+                    src="" 
+                    alt=""
+                    style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
+                  >
+                  <h4 data-i18n="journal.entry.6.date">currentdate</h4>
+                  <h2 data-i18n="journal.entry.6.title">title</h2>
+                  <p data-i18n="journal.entry.6.content">content</p>
+              </li>
               <li class="journal-entry" id="J5"   >
                 <div style="position: relative;">
                   <img 
@@ -56,9 +66,9 @@
                     alt="rich brian, where is my head? album-cover"
                     style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
                   >
-                  <h4>2025-09-19</h4>
-                <h2>Midsummer songs, Sleepless nights </h2>
-                <p>it had been 6 years since [RichBrian](link to youtube page)had released a real album ,and my boi is <b>FUCKING</b> back, and like last time ,one of the song is for me so much above the rest, both in soundscape, lyrics, rythm, lenght, and heart, and this time around it's named <b>Timezones.</b><br> i have probably already listened to it around 100 times, i just dont get tired of it, and i already know it by heart. </p>
+                  <h4 data-i18n="journal.entry.5.date">2025-09-19</h4>
+                <h2 data-i18n="journal.entry.5.title">Midsummer songs, Sleepless nights </h2>
+                <p data-i18n-html="journal.entry.5.content">it had been 6 years since [RichBrian](link to youtube page)had released a real album ,and my boi is <b>FUCKING</b> back, and like last time ,one of the song is for me so much above the rest, both in soundscape, lyrics, rythm, lenght, and heart, and this time around it's named <b>Timezones.</b><br> i have probably already listened to it around 100 times, i just dont get tired of it, and i already know it by heart. </p>
                 </div>
               </li>
               <li class="journal-entry" id="J4">
@@ -68,9 +78,9 @@
                     alt="Ishia castle"
                     style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
                   >
-                  <h4>2025-08-02</h4>
-                  <h2>Summer</h2>
-                  <p>It's been pretty hectic.<br> <b>But</b> in the middle of it, i got to travel a bunch, maybe not the best way to spend my hard earned money but travelling is never a bad thing.<br> Even with the stress it represents for me,<space><space><space> from knowing where to sleep to talk to move to actually do things; Seeing new faces, new cultures, new sights, new smells, new faces is always a good thing.<br> when you spend as much time in front of a computer as me you tend to forget how big the world is, and it feels good to get reminded it of, even if walking nearly 200km in a month kills my heels every time TwT </p>
+                  <h4 data-i18n="journal.entry.4.date">2025-08-02</h4>
+                  <h2 data-i18n="journal.entry.4.title">Summer</h2>
+                  <p data-i18n-html="journal.entry.4.content">It's been pretty hectic.<br> <b>But</b> in the middle of it, i got to travel a bunch, maybe not the best way to spend my hard earned money but travelling is never a bad thing.<br> Even with the stress it represents for me,<space><space><space> from knowing where to sleep to talk to move to actually do things; Seeing new faces, new cultures, new sights, new smells, new faces is always a good thing.<br> when you spend as much time in front of a computer as me you tend to forget how big the world is, and it feels good to get reminded it of, even if walking nearly 200km in a month kills my heels every time TwT </p>
                 </div>
               </li>
               <li class="journal-entry" id="J3">
@@ -80,9 +90,9 @@
                     alt="intern sticker"
                     style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
                   >
-                  <h4>2025-05-01</h4>
-                  <h2>INTERNSHIPS</h2>
-                  <p>got confirmation for 2 internships so thats pretty sick, i did a quick template and seems like the client relly liked it during the interiew so its basically go time , thatswhay im going to spend my nextt 2 weeks on </p>
+                  <h4 data-i18n="journal.entry.3.date">2025-05-01</h4>
+                  <h2 data-i18n="journal.entry.3.title">INTERNSHIPS</h2>
+                  <p data-i18n="journal.entry.3.content">got confirmation for 2 internships so thats pretty sick, i did a quick template and seems like the client relly liked it during the interiew so its basically go time , thatswhay im going to spend my nextt 2 weeks on </p>
                 </div>
               </li>
               <li class="journal-entry" id="J2">
@@ -92,9 +102,9 @@
                     alt="portfolio bag"
                     style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
                   >
-                  <h4>2025-04-21</h4>
-                  <h2>Portfolio refactor</h2>
-                  <p> i decided it was time to give a bit of a coat of fresh pain to the 3d portfolio part of the website , i added a basic js oop carousel efect to displau multiple extrac of a same project and mde it compatible for future projects</p>
+                  <h4 data-i18n="journal.entry.2.date">2025-04-21</h4>
+                  <h2 data-i18n="journal.entry.2.title">Portfolio refactor</h2>
+                  <p data-i18n="journal.entry.2.content"> i decided it was time to give a bit of a coat of fresh pain to the 3d portfolio part of the website , i added a basic js oop carousel efect to displau multiple extrac of a same project and mde it compatible for future projects</p>
                 </div>
               </li>
               <li class="journal-entry" id="J1">
@@ -104,19 +114,21 @@
                     alt="pomodoro sause"
                     style="width:150px; border-radius: 100%; position: absolute; top: 0; right: 0; z-index: 1; pointer-events: none;"
                   >
-                  <h4>2025-04-10</h4>
-                  <h2>My first desktop app</h2>
-                  <h3>got fed up of non flexible pomodoro timers</h3>
-                  <p>i basically got fed up of all the pomodoro timers ive tried before so i basically just built one.</p>
-                  <p>to challenge myself i wanted to make it outside of a cli for the first time and i wanted to practice rust so i used slint and their rust backend, i feel like i learned a decent bit and this makes my first actual desktop app, you can find it on my github page as minipomo</p>
+                  <h4 data-i18n="journal.entry.1.date">2025-04-10</h4>
+                  <h2 data-i18n="journal.entry.1.title">My first desktop app</h2>
+                  <h3 data-i18n="journal.entry.1.subtitle">got fed up of non flexible pomodoro timers</h3>
+                  <p data-i18n="journal.entry.1.content">i basically got fed up of all the pomodoro timers ive tried before so i basically just built one.</p>
+                  <p data-i18n-html="journal.entry.1.extra">to challenge myself i wanted to make it outside of a cli for the first time and i wanted to practice rust so i used slint and their rust backend, i feel like i learned a decent bit and this makes my first actual desktop app, you can find it on my github page as minipomo</p>
                 </div>
               </li>
             </ul>
         </article>
     </div>
   </div>
-</div>
-</body>
-</html>
+  </div>
+  <script src="../scripts/translations.js"></script>
+  <script src="../scripts/i18n.js" defer></script>
+  </body>
+  </html>
 
  

@@ -17,24 +17,24 @@
 <body>
 <div class="page-container" style="height: 100vh; overflow: hidden;">
   <div class="content-wrapper" style="height: 100vh; overflow-y: auto;">
-    <div class="flex-container">
-        <div class="flex-nav"> <span onclick="location.href='../index.html'">Acceuil</span></div>
-        <div class="flex-nav"> <span >Mes Productions
-        <div class="flex-nav"> <span onclick="location.href='CodePort.html'">Programmation </span></div>
-        <div class="flex-nav"> <span onclick="location.href='3DPort.html'">Modelisation<space> 3D </span></div> 
-        </span></div>
-        <div class="flex-nav"> <span onclick="location.href='JournalPort.html'">Journal</span></div>
-        <div class="flex-nav"> <span onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
-    </div>
+  <div class="flex-container">
+    <div class="flex-nav"> <span data-i18n="nav.home" onclick="location.href='../index.html'">Acceuil</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.products">Mes Productions
+      <div class="flex-nav"> <span data-i18n="nav.programming" onclick="location.href='CodePort.html'">Programmation </span></div>
+      <div class="flex-nav"> <span data-i18n="nav.3d" onclick="location.href='3DPort.html'">Modelisation<space> 3D </span></div> 
+    </span></div>
+    <div class="flex-nav"> <span data-i18n="nav.journal" onclick="location.href='JournalPort.html'">Journal</span></div>
+    <div class="flex-nav"> <span data-i18n="nav.table" onclick="location.href='Tableau de competence.html'">Tableau de competence</span></div>
+  </div>
 
     <div class="site-content" style="padding: 20px;  ">
-      <h1>Lya's Code Portfolio</h1>
-      <p id="intro"><span style="color: bisque;"><b>This is My public code Portfolio</b></span><br>
+      <h1 data-i18n="code.h1">Lya's Code Portfolio</h1>
+      <p id="intro" data-i18n-html="code.intro"><span style="color: bisque;"><b>This is My public code Portfolio</b></span><br>
         Here you will find a list of my public code repos as well as a quick description of what they are and what tools / languages i used <br>Not all will be completed projects, as such
         they will have the according flairs <b>#Completed, #Maintained, #In progress, #Dropped</b><br>As well as one of the
         <b>#Functionnal or #Not Functionnal</b> ones<br><br></p>
       <article>
-        <h2>Most recent Project</h2>
+        <h2 data-i18n="code.recent">Most recent Project</h2>
         <div id="repos">
           <ul id="repo-list"></ul>
         </div>
@@ -42,5 +42,9 @@
     </div>
   </div>
 </div>
+
+<!-- Translations & i18n runtime -->
+<script src="../scripts/translations.js"></script>
+<script src="../scripts/i18n.js" defer></script>
 </body>
 </html>
