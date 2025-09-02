@@ -11,6 +11,19 @@ body {
 	font-family: 'genos', sans-serif;
 }
 
+/* mobile bg video: hidden by default to avoid affecting desktop layout */
+#mobile-bg{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	z-index: 0;
+	pointer-events: none;
+}
+
 
 /* SiteWide pretty container */
 .page-container {
@@ -433,4 +446,18 @@ table td:first-child {
 		.site-content {
 			display: none;
 		}
+
+		/* mobile background video shown behind content */
+		#mobile-bg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			object-fit: cover;
+			z-index: 0;
+			pointer-events: none;
+		}
+
+
 	}
