@@ -1,329 +1,182 @@
 
 class HDcarousel{
-    version = 0.2;
+    // Minimal, robust carousel: fixed 20px gaps, responsive sizing, debounced resize,
+    // automatic sliding where outgoing item fades while sliding out, and circular rotation.
+    version = '0.3-slim';
     el = null;
-    items=[];
-    size =3;
-    gap = 20;// fixed margin between items (px)
-    item = {
-        width:0,
-        gap:0,
-        left:0,
-    }
+    gap = 20; // px
+    interval = 8000; // ms
+    animDuration = 480; // ms
 /**
  * Initializes a new HDcarousel instance
  * @param {string|Element} selector - CSS selector or DOM element for the carousel container
  */
 constructor(selector){
-    console.log("HDcarousel v" + this.version + " init")
-    if (typeof selector === 'string') {
-        this.el = document.querySelector(selector);
-    } else {
-        this.el = selector; // If an element is directly passed
-    }
-    
-    if (!this.el) {
-        console.error("Could not find element with selector:", selector);
-        return;
-    }
+    if (typeof selector === 'string') this.el = document.querySelector(selector);
+    else this.el = selector;
+    if (!this.el) return console.error('HDcarousel: container not found', selector);
 
-    // expose instance for easier debugging from console
+    // debug handle
     this.el.__hdInstance = this;
 
-    // prepare debounced resize handler (bound to this)
-    this._onResize = this.debounce(this.onResize, 150);
-    
-    // Set carousel to match its wrapper's width and prevent overflow
-    this.el.style.width = '90%';
-    this.el.style.overflow = 'hidden';
-    // ensure positioning context for absolute children
-    if (!this.el.style.position) this.el.style.position = 'relative';
-    
-    this.items = this.el.getElementsByClassName("hdcarousel_item");
-    
-    // If no hdcarousel_item found, also look for hdcarousel_item_idle
-    if (this.items.length === 0) {
-        this.items = this.el.querySelectorAll(".hdcarousel_item, .hdcarousel_item_idle");
-    }
-    
-    if (this.items.length === 0) {
-        console.error("No carousel items found in:", selector);
-        return;
-    }
+    // bind handlers
+    this._onResize = this.debounce(() => this.reflow(), 150);
+    this._tick = null;
 
-    // Set size based on actual number of items (but keep minimum display of 1)
-    this.size = Math.max(1, Math.min(3, this.items.length));
-
+    // initialize
     this.init();
-    console.log(this);
 }
 
 /**
  * Initializes the carousel by setting dimensions and preparing the initial display
  */
 async init(){
-    // Wait for all video elements to be ready
     await this.waitForMediaLoad();
-    
-    this.item.width = await this.getSize();
-    this.el.style.height = this.items[0].clientHeight + "px";
-
-    // Only initialize carousel behavior if there are multiple items
-    if (this.items.length > 1) {
-        await this.clone("next");
-        await this.build();
-        // Set up automatic sliding every 8 seconds
-        setInterval(() => {
-            this.next();
-        }, 8000);
-    } else {
-        // For single items, just position them statically
-        await this.buildStatic();
-    }
-    
-    // Register resize listener so carousel rebuilds on window resize (debounced)
-    if (typeof window !== 'undefined' && this._onResize) {
-        window.addEventListener('resize', this._onResize);
-    }
-
-    // Show the carousel now that it's properly initialized
-    this.el.style.opacity = '1';
-    this.el.style.visibility = 'visible';
-    this.el.style.transition = 'opacity 0.3s ease-in-out';
+    // initial layout and start
+    this.reflow();
+    window.addEventListener('resize', this._onResize);
+    this._tick = setInterval(() => this.next(), this.interval);
 }
 
 /**
  * Wait for all media elements (videos/images) to be loaded and have dimensions
  */
-async waitForMediaLoad() {
-    const mediaElements = Array.from(this.items).filter(item => 
-        item.tagName === 'VIDEO' || item.tagName === 'IMG'
-    );
-    
-    if (mediaElements.length === 0) return;
-    
-    const promises = mediaElements.map(media => {
-        return new Promise((resolve) => {
-            if (media.tagName === 'VIDEO') {
-                if (media.videoWidth > 0 && media.videoHeight > 0) {
-                    resolve();
-                } else {
-                    media.addEventListener('loadedmetadata', resolve, { once: true });
-                    // Fallback timeout
-                    setTimeout(resolve, 1000);
-                }
-            } else if (media.tagName === 'IMG') {
-                if (media.complete && media.naturalWidth > 0) {
-                    resolve();
-                } else {
-                    media.addEventListener('load', resolve, { once: true });
-                    // Fallback timeout
-                    setTimeout(resolve, 1000);
-                }
-            } else {
-                resolve();
-            }
-        });
-    });
-    
-    await Promise.all(promises);
-    
-    // Additional small delay to ensure rendering is complete
-    await new Promise(resolve => setTimeout(resolve, 100));
+async waitForMediaLoad(){
+    const items = Array.from(this.el.querySelectorAll('.hdcarousel_item'));
+    const media = items.flatMap(it => Array.from(it.querySelectorAll('video, img')));
+    if (media.length === 0) return;
+    await Promise.all(media.map(m => new Promise(r => {
+        if (m.tagName === 'VIDEO'){
+            if (m.videoWidth>0) return r();
+            m.addEventListener('loadedmetadata', r, { once:true });
+        } else if (m.tagName === 'IMG'){
+            if (m.complete && m.naturalWidth>0) return r();
+            m.addEventListener('load', r, { once:true });
+        } else r();
+        setTimeout(r, 1200);
+    })));
 }
 
 /**
  * Calculates the width for each carousel item based on container width and desired item count
  * @returns {number} The calculated width for each item with gap considerations
  */
-async getSize(){
-    // Get the wrapper's width instead of the carousel's width
-    const wrapper = this.el.parentElement;
-    let containerWidth = wrapper ? wrapper.clientWidth : this.el.clientWidth;
-    
-    // Make sure carousel uses full wrapper width
-    this.el.style.width = '100%';
-    
-    // For single items, use the full wrapper width minus padding
-    if (this.items.length === 1) {
-        this.gap = 0;
-        const itemWidth = containerWidth - 20; // Leave some padding
-        return itemWidth;
-    }
-    
-    // Use a fixed gap to avoid variable spacing issues that can cause overlap
-    this.gap = 20; // px
-
-    // Calculate individual item width so that items + gaps fit within the container
-    const availableWidth = Math.max(0, containerWidth - (this.gap * (this.size - 1)));
-    // Floor the width to ensure we never exceed container width due to fractions
-    const baseItemWidth = Math.floor(availableWidth / this.size);
-
-    console.log(`Carousel ${this.el.id}: wrapper=${containerWidth}px, items=${this.items.length}, itemWidth=${baseItemWidth}px, gap=${this.gap}px`);
-
-    return baseItemWidth;
+// compute per-item width based on wrapper width and desired visible count (max 3)
+getSize(){
+    const wrapper = this.el.parentElement || this.el;
+    const containerWidth = wrapper.clientWidth || this.el.clientWidth || 800;
+    const itemsCount = Math.max(1, this.el.querySelectorAll('.hdcarousel_item').length);
+    const visible = Math.max(1, Math.min(3, itemsCount));
+    if (itemsCount === 1) return Math.max(0, containerWidth - 20);
+    const totalGap = this.gap * (visible - 1);
+    const available = Math.max(0, containerWidth - totalGap);
+    return Math.floor(available / visible);
 }
 
 /**
  * Positions all carousel items horizontally with proper spacing
  */
-async build(){
-    // Ensure container is positioned relative so absolute children are placed correctly
+// layout items: set sizes, positions, z-index and container width
+layout(){
+    const items = Array.from(this.el.querySelectorAll('.hdcarousel_item'));
+    if (items.length === 0) return;
+    const itemW = this.getSize();
+    const gap = this.gap;
     this.el.style.position = 'relative';
-
-    // Use precise arithmetic and enforce box-sizing so borders/padding don't change layout
-    let l = 0; // Start from left edge
-    const gap = Number(this.gap) || 20;
-    for (let i = 0; i < this.items.length; i++){
-        const it = this.items[i];
-        // enforce layout-safe styles
+    let left = 0;
+    for (let i=0;i<items.length;i++){
+        const it = items[i];
         it.style.boxSizing = 'border-box';
+        it.style.position = 'absolute';
+        it.style.width = itemW + 'px';
+        it.style.left = left + 'px';
         it.style.margin = '0';
         it.style.padding = '0';
         it.style.overflow = 'hidden';
-        it.style.position = 'absolute';
-
-        // set width and left
-        it.style.width = this.item.width + "px";
-        it.style.left = l + "px";
-
-        // ensure media inside the item fit their container
-        Array.from(it.querySelectorAll('video, img')).forEach(m => {
-            m.style.width = '100%';
-            m.style.height = '100%';
-            m.style.objectFit = 'cover';
-            m.style.display = 'block';
+        Array.from(it.querySelectorAll('video,img')).forEach(m=>{
+            m.style.width='100%'; m.style.height='100%'; m.style.objectFit='cover'; m.style.display='block';
         });
-
-        // set z-index so earlier items (index 0) are on top of later ones
-        // higher value for lower index
-        try{ it.style.zIndex = String(this.items.length - i); }catch(e){}
-
-        // advance left position by item width + gap
-        l = l + this.item.width + (i < this.items.length - 1 ? gap : 0);
+    // higher zIndex for earlier items so current front item stays on top
+    it.style.zIndex = String(items.length - i);
+        left += itemW + (i < items.length-1 ? gap : 0);
     }
-    // After positioning items, set the carousel element width to total required width
-    // so that the wrapper can clip/scroll it appropriately.
-    try { this.el.style.width = l + 'px'; } catch(e) { /* ignore */ }
+    // set carousel width to the total width of its items + gaps
+    this.el.style.width = left + 'px';
+    // set height to match first item's rendered height
+    this.el.style.height = items[0].clientHeight + 'px';
 }
 
 /**
  * Positions single carousel item statically (no movement)
  */
-async buildStatic(){
-    this.items[0].style.width = this.item.width + "px";
-    this.items[0].style.left = "0px"; // Align to the left edge
-    // set carousel width to match single item
-    try { this.el.style.width = this.item.width + 'px'; } catch(e){}
-}
+// single item layout is same as layout(), call layout()
+buildStatic(){ this.layout(); }
 
 /**
  * Debounce helper: returns a function that delays calls to fn until wait ms have passed
  */
-debounce(fn, wait = 150){
-    let timer = null;
-    return (...args) => {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-            // call async functions without awaiting here
-            (async () => {
-                try { await fn.apply(this, args); } catch(e){ console.error(e); }
-            })();
-        }, wait);
-    };
-}
+debounce(fn, wait=150){ let t=null; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(this,a), wait); }; }
 
 /**
  * Resize handler: recompute item sizes and rebuild layout
  */
-async onResize(){
-    // compute new size
-    this.item.width = await this.getSize();
-    // rebuild appropriate layout
-    if (this.items.length > 1) await this.build();
-    else await this.buildStatic();
-    // update container height to match first item
-    if(this.items[0]) this.el.style.height = this.items[0].clientHeight + "px";
+reflow(){
+    this.layout();
 }
 
 /**
  * Creates a transition effect by cloning an item from one end to the other
  * @param {string} pos - Direction of movement: "next" (default) or "prev"
  */
-async clone(pos="prev"){
-    let item = 0;
-    if (pos === "prev"){
-        item = this.items[0]
-
-    }else{
-        item = this.items[this.items.length - 1];
-    }
-    let c = item.cloneNode(true);
-
-    if( pos === "prev"){
-        this.el.appendChild(c);
-    }else{
-        this.el.prepend(c);
-    }
-    item.remove();
+// move first element to the end (used after sliding out)
+moveFirstToEnd(){
+    const first = this.el.querySelector('.hdcarousel_item');
+    if (!first) return;
+    // place it visually under the others immediately to avoid a split-second flash
+    try {
+        first.style.transition = '';
+        first.style.opacity = '1';
+        first.style.zIndex = '0';
+    } catch (e) { /* ignore readonly styles */ }
+    this.el.appendChild(first);
 }
 
 /**
  * Advances the carousel to the next slide by cloning and rebuilding
  */
-async next(){
-    // Only advance if there are multiple items
-    if (this.items.length > 1) {
-        await this.slideNext();
-    }
-}
+next(){ if ((this.el.querySelectorAll('.hdcarousel_item')||[]).length>1) this.slideNext(); }
 
 /**
  * Animate sliding to the next item: items move left and the outgoing item fades out.
  * After animation finishes, we clone/remove to keep the circular buffer and rebuild positions.
  */
 async slideNext(){
-    if (this.items.length <= 1) return;
-    const gap = Number(this.gap) || 20;
-    const shift = this.item.width + gap;
-    const duration = 480; // ms, matches CSS transition below
+    const items = Array.from(this.el.querySelectorAll('.hdcarousel_item'));
+    if (items.length <= 1) return;
+    const itemW = this.getSize();
+    const shift = itemW + this.gap;
+    const dur = this.animDuration;
 
-    // ensure we have numeric lefts for all items
-    for(let i=0;i<this.items.length;i++){
-        const it = this.items[i];
-        const cur = parseFloat(it.style.left) || 0;
-        it.style.left = cur + 'px'; // normalize
-        it.style.transition = `left ${duration}ms cubic-bezier(.2,.9,.2,1), opacity ${duration}ms linear`;
-    }
-
-    // trigger layout then set new positions
-    // move every item left by `shift` and fade out the leftmost one
-    // pick the outgoing element (current leftmost) - index 0
-    const outgoing = this.items[0];
-    // Force reflow
+    // set transitions and compute current lefts
+    items.forEach(it=>{
+        it.style.transition = `left ${dur}ms cubic-bezier(.2,.9,.2,1), opacity ${dur}ms linear`;
+    });
+    // force reflow
     this.el.offsetHeight;
-
-    for(let i=0;i<this.items.length;i++){
-        const it = this.items[i];
+    // move left and fade first
+    items.forEach((it, idx)=>{
         const cur = parseFloat(it.style.left) || 0;
         it.style.left = (cur - shift) + 'px';
-    }
-    // fade outgoing
-    try{ outgoing.style.opacity = '0'; }catch(e){}
+        if (idx === 0) it.style.opacity = '0';
+    });
 
-    // wait for animation to complete
-    await new Promise(resolve => setTimeout(resolve, duration + 40));
-
-    // cleanup transitions and opacities
-    for(let i=0;i<this.items.length;i++){
-        const it = this.items[i];
-        it.style.transition = '';
-        it.style.opacity = '1';
-    }
-
-    // rotate DOM: move the outgoing (first) element to the end so sequence continues
-    await this.clone("prev");
-    await this.build();
+    // wait animation
+    await new Promise(r=> setTimeout(r, dur + 40));
+    // reset inline transition/opacity
+    items.forEach(it=>{ it.style.transition=''; it.style.opacity='1'; });
+    // rotate DOM and relayout
+    this.moveFirstToEnd();
+    this.layout();
 }
 }
 
