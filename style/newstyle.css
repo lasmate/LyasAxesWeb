@@ -421,6 +421,7 @@ table td:first-child {
 		body{
 			height: 100vh;
 			font-size:x-large
+			
 		}
 		.page-container {
 			padding: 1vh 1vw;
@@ -449,14 +450,31 @@ table td:first-child {
 
 		/* mobile background video shown behind content */
 		#mobile-bg {
+			display: block;
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100vw;
 			height: 100vh;
-			object-fit: cover;
-			z-index: 0;
+			object-fit: cover; /* fill viewport, crop as needed */
+			z-index: 0; /* stay behind content */
 			pointer-events: none;
+		}
+
+		/* ensure nav and its children sit above the video */
+		.flex-container {
+			position: relative;
+			z-index: 9999;
+		}
+
+		/* hide everything inside content-wrapper except the nav on mobile */
+		.content-wrapper > :not(.flex-container) {
+			display: none !important;
+		}
+
+		/* disable CRT overlays on small screens so only the nav is visible */
+		.crt::before, .crt::after {
+			display: none !important;
 		}
 
 
