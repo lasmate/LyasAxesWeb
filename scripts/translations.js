@@ -8,7 +8,7 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		"nav.programming": "Programmation",
 		"nav.3d": "Modélisation 3D",
 		"nav.journal": "Journal",
-		"nav.table": "Tableau de compétence"
+		"nav.table": "Tableau de \<br> compétence"
 		// Index / WhoAmI
 		,"whoami.h1": "Salut, je m'appelle Lya"
 		,"whoami.h3": "Je suis une étudiante passionnée en informatique, spécialisée en développement web"
@@ -21,8 +21,8 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		,"whoami.hobby.1": "Modélisation 3D et impression 3D"
 		,"whoami.hobby.2": "Programmation (principalement front-end)"
 		,"whoami.hobby.3": "Regarder des anime"
-		,"whoami.hobby.4": "Jouer à des jeux narratifs"
-		,"whoami.hobby.5": "Lire des romans de science-fiction (Isaac Asimov, mon préféré <3)"
+		,"whoami.hobby.4": "Jouer à des jeux avec une forte narration"
+		,"whoami.hobby.5": "Lire des romans de science-fiction (Isaac Asimov, my beloved <3)"
 
 		// Code portfolio page
 		,"code.h1": "Portfolio de code de Lya"
@@ -44,27 +44,23 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		,"journal.h1": "Journal public de Lya Lasvenes"
 		,"journal.intro": "<br>Ceci est mon journal personnel public. J'y poste régulièrement des découvertes, des étapes importantes, des réflexions et des récits de voyages.<br><br>"
 		,"journal.last": "Dernière entrée"
-		,"journal.entry.6.date": "date actuelle"
+
 		,"journal.entry.6.title": "titre"
 		,"journal.entry.6.content": "contenu"
 
-		,"journal.entry.5.date": "2025-09-19"
+
 		,"journal.entry.5.title": "Chansons de mi-été, nuits sans sommeil"
 		,"journal.entry.5.content": "Ça faisait six ans que [RichBrian] n'avait pas sorti un vrai album, et il est de retour — c'est incroyable. Une des chansons se démarque par son paysage sonore, ses paroles, son rythme et son cœur ; elle s'appelle <b>Timezones</b>. Je l'ai déjà écoutée des dizaines de fois sans m'en lasser."
 
-		,"journal.entry.4.date": "2025-08-02"
 		,"journal.entry.4.title": "Été"
 		,"journal.entry.4.content": "C'était assez chargé. Mais au milieu de tout ça, j'ai voyagé pas mal ; ce n'était peut-être pas la meilleure façon de dépenser mon argent, mais voyager reste toujours enrichissant. Même si marcher près de 200 km en un mois me tue les pieds, ça fait du bien de se rappeler que le monde est vaste."
 
-		,"journal.entry.3.date": "2025-05-01"
 		,"journal.entry.3.title": "STAGES"
 		,"journal.entry.3.content": "J'ai obtenu la confirmation pour deux stages — c'est génial. J'ai préparé un template et le client a semblé l'apprécier pendant l'entretien, donc c'est parti."
 
-		,"journal.entry.2.date": "2025-04-21"
 		,"journal.entry.2.title": "Refonte du portfolio"
 		,"journal.entry.2.content": "J'ai décidé de rafraîchir la partie 3D du portfolio : j'ai ajouté un petit carousel OOP en JS pour afficher plusieurs extraits d'un même projet et le rendre compatible avec de futurs projets."
 
-		,"journal.entry.1.date": "2025-04-10"
 		,"journal.entry.1.title": "Ma première application de bureau"
 		,"journal.entry.1.subtitle": "Marre des minuteurs Pomodoro non flexibles"
 		,"journal.entry.1.content": "J'en avais marre des minuteurs Pomodoro que j'avais essayés, alors j'en ai construit un moi-même."

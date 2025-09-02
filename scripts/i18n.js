@@ -7,23 +7,84 @@
 (function(){
 	const LS_KEY = 'site_lang';
 	const DEFAULT = document.documentElement.lang || 'en';
-	const AVAILABLE = ['en', 'fr']; // extendable
+
+	// build available languages from translations + default
+	function getAvailable(){
+		const langs = new Set([DEFAULT]);
+		if(window.TRANSLATIONS) Object.keys(window.TRANSLATIONS).forEach(l=>langs.add(l));
+		return Array.from(langs);
+	}
 
 	function getTranslations(lang){
 		return (window.TRANSLATIONS && window.TRANSLATIONS[lang]) || {};
 	}
 
-	function translatePage(lang){
-		const map = getTranslations(lang);
-		document.querySelectorAll('[data-i18n]').forEach(el => {
-			const key = el.getAttribute('data-i18n');
-			if(!key) return;
-			const val = map[key];
-			if(typeof val === 'string'){
-				if(el.hasAttribute('data-i18n-html')) el.innerHTML = val;
-				else el.textContent = val;
-			}
+	// store originals so we can restore when switching back to DEFAULT
+	const ORIGINALS = new WeakMap();
+
+	function captureOriginals(){
+		document.querySelectorAll('[data-i18n]').forEach(el=>{
+			if(ORIGINALS.has(el)) return;
+			ORIGINALS.set(el, {
+				html: el.innerHTML,
+				// capture first text node value if present
+				firstTextNode: (function(){
+					for(const n of el.childNodes){
+						if(n.nodeType === Node.TEXT_NODE) return n.nodeValue;
+					}
+					return null;
+				})()
+			});
 		});
+	}
+
+	function getFirstTextNode(el){
+		for(const n of el.childNodes){
+			if(n.nodeType === Node.TEXT_NODE) return n;
+		}
+		return null;
+	}
+
+	function translateElement(el, lang){
+		const map = getTranslations(lang);
+		const key = el.getAttribute('data-i18n');
+		if(!key) return;
+		const val = map[key];
+
+		// If a translation exists for this key -> apply it
+		if(typeof val === 'string'){
+			if(el.hasAttribute('data-i18n-html')){
+				el.innerHTML = val;
+			} else if(el.children && el.children.length > 0){
+				// preserve child elements (links); only replace first text node
+				const tnode = getFirstTextNode(el);
+				if(tnode) tnode.nodeValue = val;
+				else el.insertBefore(document.createTextNode(val), el.firstChild);
+			} else {
+				el.textContent = val;
+			}
+			return;
+		}
+
+		// No translation for target language: if lang === DEFAULT restore original content
+		if(lang === DEFAULT){
+			const orig = ORIGINALS.get(el);
+			if(!orig) return;
+			if(el.hasAttribute('data-i18n-html')){
+				el.innerHTML = orig.html;
+			} else if(el.children && el.children.length > 0){
+				const tnode = getFirstTextNode(el);
+				if(tnode && orig.firstTextNode !== null) tnode.nodeValue = orig.firstTextNode;
+				else if(orig.html) el.innerHTML = orig.html; // fallback
+			} else {
+				if(orig.firstTextNode !== null) el.textContent = orig.firstTextNode;
+				else if(orig.html) el.innerHTML = orig.html;
+			}
+		}
+	}
+
+	function translatePage(lang){
+		document.querySelectorAll('[data-i18n]').forEach(el=> translateElement(el, lang));
 		document.documentElement.lang = lang;
 	}
 
@@ -31,6 +92,9 @@
 		if(!lang) return;
 		localStorage.setItem(LS_KEY, lang);
 		translatePage(lang);
+		// update select if present
+		const sel = document.getElementById('lang-select');
+		if(sel) sel.value = lang;
 	}
 
 	function getLang(){
@@ -39,66 +103,46 @@
 		return DEFAULT;
 	}
 
-		function createButton(){
-			if(document.getElementById('lang-toggle-wrapper')) return;
-			const wrap = document.createElement('div');
-			wrap.id = 'lang-toggle-wrapper';
-			wrap.style.position = 'fixed';
-			wrap.style.top = '12px';
-			wrap.style.right = '12px';
-			wrap.style.zIndex = 999999;
-			wrap.style.display = 'flex';
-			wrap.style.gap = '6px';
-			wrap.style.alignItems = 'center';
+	function createDropdown(){
+		if(document.getElementById('lang-select')) return;
+		const wrap = document.createElement('div');
+		wrap.id = 'lang-toggle-wrapper';
+		wrap.style.position = 'fixed';
+		wrap.style.top = '12px';
+		wrap.style.right = '12px';
+		wrap.style.zIndex = 999999;
 
-			function makeLangBtn(code){
-				const b = document.createElement('button');
-				b.type = 'button';
-				b.className = 'lang-toggle-btn';
-				b.dataset.lang = code;
-				b.textContent = code.toUpperCase();
-				b.style.padding = '6px 8px';
-				b.style.borderRadius = '6px';
-				b.style.border = '1px solid rgba(255,255,255,0.12)';
-				b.style.background = 'rgba(0,0,0,0.45)';
-				b.style.color = '#fff';
-				b.style.cursor = 'pointer';
-				b.style.fontSize = '13px';
-				b.addEventListener('click', ()=>{
-					setLang(code);
-					updateActive();
-				});
-				return b;
-			}
+		const sel = document.createElement('select');
+		sel.id = 'lang-select';
+		sel.setAttribute('aria-label','Language selector');
+		sel.style.padding = '6px 8px';
+		sel.style.borderRadius = '6px';
+		sel.style.background = 'rgba(0,0,0,0.6)';
+		sel.style.color = '#fff';
+		sel.style.border = '1px solid rgba(255,255,255,0.12)';
+		sel.style.fontSize = '14px';
 
-			const btns = AVAILABLE.map(makeLangBtn);
-			btns.forEach(b=> wrap.appendChild(b));
+		const langs = getAvailable();
+		langs.forEach(l=>{
+			const opt = document.createElement('option');
+			opt.value = l;
+			opt.textContent = l.toUpperCase();
+			sel.appendChild(opt);
+		});
 
-			function updateActive(){
-				const cur = getLang();
-				wrap.querySelectorAll('.lang-toggle-btn').forEach(b=>{
-					if(b.dataset.lang === cur){
-						b.style.background = '#fff';
-						b.style.color = '#000';
-						b.style.fontWeight = '700';
-					} else {
-						b.style.background = 'rgba(0,0,0,0.45)';
-						b.style.color = '#fff';
-						b.style.fontWeight = '400';
-					}
-				});
-			}
+		sel.value = getLang();
+		sel.addEventListener('change', ()=> setLang(sel.value));
 
-			document.body.appendChild(wrap);
-			updateActive();
-		}
+		wrap.appendChild(sel);
+		document.body.appendChild(wrap);
+	}
 
 	function init(){
-		// ensure translations object exists
 		if(!window.TRANSLATIONS) window.TRANSLATIONS = {};
+		captureOriginals();
 		const lang = getLang();
 		translatePage(lang);
-		createButton();
+		createDropdown();
 	}
 
 	if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
