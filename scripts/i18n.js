@@ -23,7 +23,7 @@
 	const ORIGINALS = new WeakMap();
 
 	function captureOriginals(){
-		document.querySelectorAll('[data-i18n]').forEach(el=>{
+		document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(el=>{
 			if(ORIGINALS.has(el)) return;
 			ORIGINALS.set(el, {
 				html: el.innerHTML,
@@ -47,7 +47,8 @@
 
 	function translateElement(el, lang){
 		const map = getTranslations(lang);
-		const key = el.getAttribute('data-i18n');
+	// allow either data-i18n (plain text) or data-i18n-html (html content) as the key source
+	const key = el.getAttribute('data-i18n') || el.getAttribute('data-i18n-html');
 		if(!key) return;
 		const val = map[key];
 
@@ -84,7 +85,7 @@
 	}
 
 	function translatePage(lang){
-		document.querySelectorAll('[data-i18n]').forEach(el=> translateElement(el, lang));
+		document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(el=> translateElement(el, lang));
 		document.documentElement.lang = lang;
 	}
 

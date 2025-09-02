@@ -210,7 +210,7 @@ table {
 table th:first-child,
 table td:first-child {
 	padding-left: 1vw;
-	width: 15%; /* Force minimum width */
+	width: 14%; /* Force minimum width */
 	
 	background-color:#3c393dcb;
 	border-radius: 16px;
@@ -225,12 +225,18 @@ table td:first-child {
 }
 .Dropped{
 	color: red;
+	font-size: x-large;
+	text-shadow: 0 0 5px rgba(255,0,0,0.5);
 }
 .Completed{
 	color: greenyellow;
+	font-size: x-large;
+	text-shadow: 0 0 5px rgba(0,255,0,0.5);
 }
 .InPro{
 	color: darkcyan;
+	font-size: x-large;
+	text-shadow: 0 0 5px rgba(0,139,139,0.5);
 }
 
 

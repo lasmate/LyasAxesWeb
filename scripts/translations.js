@@ -50,13 +50,13 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 
 
 		,"journal.entry.5.title": "Chansons de mi-été, nuits sans sommeil"
-		,"journal.entry.5.content": "Ça faisait six ans que [RichBrian] n'avait pas sorti un vrai album, et il est de retour — c'est incroyable. Une des chansons se démarque par son paysage sonore, ses paroles, son rythme et son cœur ; elle s'appelle <b>Timezones</b>. Je l'ai déjà écoutée des dizaines de fois sans m'en lasser."
+		,"journal.entry.5.content": "Ça faisait six ans que [RichBrian] n'avait pas sorti un \"vrai\" album, et il est de retour — c'est incroyable. Une des chansons se démarque par son paysage sonore, ses paroles, son rythme et son cœur ; elle s'appelle <b>Timezones</b>. Je l'ai déjà écoutée des dizaines de fois sans m'en lasser."
 
 		,"journal.entry.4.title": "Été"
-		,"journal.entry.4.content": "C'était assez chargé. Mais au milieu de tout ça, j'ai voyagé pas mal ; ce n'était peut-être pas la meilleure façon de dépenser mon argent, mais voyager reste toujours enrichissant. Même si marcher près de 200 km en un mois me tue les pieds, ça fait du bien de se rappeler que le monde est vaste."
+		,"journal.entry.4.content": "C'était assez chargé. Mais au milieu de tout ça, j'ai pas mal voyagé; ce n'était peut-être pas la meilleure façon de dépenser mon argent, mais voyager reste toujours enrichissant. Même si marcher près de 200 km en un mois m'a tué les pieds, cela fait du bien de se rappeler que le monde est si vaste."
 
 		,"journal.entry.3.title": "STAGES"
-		,"journal.entry.3.content": "J'ai obtenu la confirmation pour deux stages — c'est génial. J'ai préparé un template et le client a semblé l'apprécier pendant l'entretien, donc c'est parti."
+		,"journal.entry.3.content": "J'ai obtenu la confirmation pour deux stages — c'est génial. J'ai préparé un template et le client a semblé l'apprécier pendant l'entretien, donc let's go."
 
 		,"journal.entry.2.title": "Refonte du portfolio"
 		,"journal.entry.2.content": "J'ai décidé de rafraîchir la partie 3D du portfolio : j'ai ajouté un petit carousel OOP en JS pour afficher plusieurs extraits d'un même projet et le rendre compatible avec de futurs projets."
