@@ -118,9 +118,9 @@
 		sel.setAttribute('aria-label','Language selector');
 		sel.style.padding = '6px 8px';
 		sel.style.borderRadius = '6px';
-		sel.style.background = 'rgba(0,0,0,0.6)';
-		sel.style.color = '#fff';
-		sel.style.border = '1px solid rgba(255,255,255,0.12)';
+	sel.style.background = 'rgba(0,0,0,0.6)';
+	sel.style.color = 'rgba(255,255,255,1)';
+	sel.style.border = '1px solid rgba(255,255,255,0.12)';
 		sel.style.fontSize = '14px';
 
 		const langs = getAvailable();
