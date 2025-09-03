@@ -8,7 +8,7 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		"nav.programming": "Programmation",
 		"nav.3d": "Modélisation 3D",
 		"nav.journal": "Journal",
-		"nav.table": "Tableau de compétences"
+		"nav.table": "Tableau de <br> compétences"
 		// Index / WhoAmI
 		,"whoami.h1": "Heya, je m'appelle Lya"
 		,"whoami.h3": "Je suis une étudiante passionnée en informatique, spécialisée en développement web"

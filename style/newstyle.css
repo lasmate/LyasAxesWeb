@@ -101,6 +101,7 @@ li{
 	flex-direction: row;
 	justify-content: center;
 	align-items:center;
+	overflow: visible; /* allow children to overflow/overlay */
 	z-index: 2;
 	color: wheat;
 	font-size: 2em;
@@ -123,6 +124,58 @@ li{
 .flex-nav:hover {
 	background-color: rgba(86, 27, 86, 0.538);
 }
+.flex-nav-block{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border-bottom: black;
+	border-bottom-width: 5px;
+	font-size: .8em;
+	color: wheat;
+	cursor: pointer;
+	position: relative; /* establish containing block for absolute submenu */
+	z-index: 9999;
+}
+.flex-nav-BC{
+	display: none; /* hidden by default */
+	position: absolute; /* overlay without affecting height */
+	top: 100%;
+	left: 0;
+	transform: translateY(6px);
+	display: none;
+	flex-direction: row; /* horizontal list */
+	gap: 8px;
+	align-items: center;
+	background: rgba(86, 27, 86, 0.95);
+	padding: 4px 6px;
+	border-radius: 6px;
+	white-space: nowrap; /* keep items on single line */
+	overflow-x: auto; /* allow horizontal scroll if needed */
+	max-width: 90vw;
+	z-index: 9999;
+	pointer-events: auto;
+}
+
+.flex-nav-block:hover .flex-nav-BC{
+	display: flex;
+}
+
+.flex-nav-BC > * {
+	display: inline-flex;
+	align-items: center;
+	padding: 6px 10px;
+	margin-right: 8px;
+	border-radius: 6px;
+	color: wheat;
+	flex: 0 0 auto; /* prevent shrinking and overlapping */
+}
+
+.flex-nav-BC > *:hover{
+	background: rgba(255,255,255,0.04);
+}
+
 
 /* Specific page related css */
 
@@ -417,11 +470,10 @@ table td:first-child {
 	}
 	
 /* Mobile layout  */
-	@media (max-width: 200px) {
+	@media (max-width: 600px) {
 		body{
 			height: 100vh;
 			font-size:x-large
-			
 		}
 		.page-container {
 			padding: 1vh 1vw;
@@ -450,31 +502,14 @@ table td:first-child {
 
 		/* mobile background video shown behind content */
 		#mobile-bg {
-			display: block;
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100vw;
 			height: 100vh;
-			object-fit: cover; /* fill viewport, crop as needed */
-			z-index: 0; /* stay behind content */
+			object-fit: cover;
+			z-index: 0;
 			pointer-events: none;
-		}
-
-		/* ensure nav and its children sit above the video */
-		.flex-container {
-			position: relative;
-			z-index: 9999;
-		}
-
-		/* hide everything inside content-wrapper except the nav on mobile */
-		.content-wrapper > :not(.flex-container) {
-			display: none !important;
-		}
-
-		/* disable CRT overlays on small screens so only the nav is visible */
-		.crt::before, .crt::after {
-			display: none !important;
 		}
 
 
