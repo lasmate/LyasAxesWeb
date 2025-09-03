@@ -33,7 +33,7 @@ html {
 	/* additional specific variants used in file */
 	--nav-text: rgba(245,222,179,1); /* wheat */
 	--accent-54: rgba(221,160,221,0.538);
-	--accent-dark-54: rgba(86,27,86,0.538);
+	--accent-dark-54: rgba(186,27,86,0.538);
 	--accent-dark-95: rgba(86,27,86,0.95);
 	/* unify subtle white variants to single token */
 	--white-12: rgba(255,255,255,0.12);
@@ -71,28 +71,23 @@ body {
 .block1 .site-content article > :not(h2){
 	display: none;
 }
-.block1 .site-content article h2{ cursor: pointer; }
-.block1 .site-content article.open > :not(h2){
+.site-content article h2{ cursor: pointer; }
+.site-content article.open > :not(h2){
 	display: block;
 }
-.block1 .site-content article .collapsible-note{ font-size: 0.95rem; color: rgba(200,200,200,0.9); }
+.collapsible-note{ font-size: 0.95rem; color: rgba(200,200,200,0.9); }
 
-.block1 .site-content article{
+ article{
 	background-color: var(--accent-dark-95);
 	border-radius: 20px;
 	padding: 10px;
 	margin: 10px 0;
 }
 
-.block1 .site-content article img{
+article img{
 	width: 100%;
 	max-width: 600px;
 	display: block;
-}
-
-.block1 .flex-container{ /* ensure nav layout inside page */
-	display: flex;
-	flex-wrap: wrap;
 }
 
 .block1 .flex-nav{ margin-right: 8px; }
