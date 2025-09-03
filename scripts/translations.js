@@ -8,9 +8,9 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		"nav.programming": "Programmation",
 		"nav.3d": "Modélisation 3D",
 		"nav.journal": "Journal",
-		"nav.table": "Tableau de <br> compétence"
+		"nav.table": "Tableau de compétences"
 		// Index / WhoAmI
-		,"whoami.h1": "Salut, je m'appelle Lya"
+		,"whoami.h1": "Heya, je m'appelle Lya"
 		,"whoami.h3": "Je suis une étudiante passionnée en informatique, spécialisée en développement web"
 		,"whoami.p1": "J'ai eu 25 ans cette année."
 		,"whoami.p2": "Je poursuis actuellement mes études en développement web. Je vise un diplôme en SIO (Services Informatiques aux Organisations) avec l'option SLAM (Solutions Logicielles et Applications Métiers) cette année."
@@ -45,8 +45,8 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		,"journal.intro": "<br>Ceci est mon journal personnel public. J'y poste régulièrement des découvertes, des étapes importantes, des réflexions et des récits de voyages.<br><br>"
 		,"journal.last": "Dernière entrée"
 
-		,"journal.entry.6.title": "titre"
-		,"journal.entry.6.content": "contenu"
+		,"journal.entry.6.title": "Retour à l'école"
+		,"journal.entry.6.content": "Refonte finale du portfolio avant de retourner dans le supérieur pour une année de plus. Sur le plan personnel, j'ai enfin terminé l'anime Gundam GQuuuuuX et ma copine m'a offert sa machine phare à construire."
 
 
 		,"journal.entry.5.title": "Chansons de mi-été, nuits sans sommeil"
