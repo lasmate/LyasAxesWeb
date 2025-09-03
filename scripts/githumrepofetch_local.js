@@ -23,7 +23,7 @@ async function fetchLocalCSVAndRender() {
   const repoList = document.getElementById('repo-list');
   if (!repoList) return;
   try {
-  repoList.innerHTML = '<li><div style="background-color: rgba(11,52,79,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Loading mock repositories...</div></li>';
+  repoList.innerHTML = '<li><div style="background-color: var(--bg-0b344f); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Loading mock repositories...</div></li>';
     // try a set of candidate paths because pages may live in subfolders
     const candidates = [MOCK_CSV_PATH, '../' + MOCK_CSV_PATH, './' + MOCK_CSV_PATH, '/' + MOCK_CSV_PATH];
     let resp = null;
@@ -47,7 +47,7 @@ async function fetchLocalCSVAndRender() {
   } catch (err) {
   console.error('Error loading mock repos CSV:', err);
     // fall back to empty state
-  repoList.innerHTML = '<li><div style="background-color: rgba(11,52,79,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Unable to load mock repos.</div></li>';
+  repoList.innerHTML = '<li><div style="background-color: var(--bg-0b344f); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Unable to load mock repos.</div></li>';
   }
 }
 
@@ -100,7 +100,7 @@ function renderReposLocal(repos) {
 
     const li = document.createElement('li');
     li.innerHTML = `
-      <div style="background-color: rgba(53,53,53,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
+  <div style="background-color: var(--bg-353535); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
         <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
         <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="font-weight: thin; font-size: large;">${repo.name} :</a><br> ${repo.description || 'No description available'}<br>
   <div style="color: rgba(217,217,217,1); font-size: larger;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</div><br>

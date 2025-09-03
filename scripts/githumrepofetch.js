@@ -44,7 +44,7 @@ async function fetchRepos() {
     }
 
     // Show loading indicator
-  repoList.innerHTML = '<li><div style="background-color: rgba(11,52,79,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Loading repositories...</div></li>';
+  repoList.innerHTML = '<li><div style="background-color: var(--bg-0b344f); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">Loading repositories...</div></li>';
     
     // Check rate limit before making the main request
     const rateLimitResponse = await fetch('https://api.github.com/rate_limit');
@@ -75,10 +75,10 @@ async function fetchRepos() {
 
   } catch (error) {
     console.error('Error fetching repos:', error);
-  repoList.innerHTML = `<li><div style="background-color: rgba(11,52,79,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
+  repoList.innerHTML = `<li><div style="background-color: var(--bg-0b344f); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
       <img   src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="border-radius:10px; width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
       <span>${error.message || 'Error fetching repos. Please try again later.'}</span>
-      <button onclick="clearGitHubCache()" style="margin-left: 15px; background: #0D1117; border: 1px solid #30363D; color: #c9d1d9; padding: 3px 8px; border-radius: 6px; cursor: pointer;">Retry</button>
+  <button onclick="clearGitHubCache()" style="margin-left: 15px; background: var(--bg-0d1117); border: 1px solid var(--border-30363d); color: var(--muted-c9d1d9); padding: 3px 8px; border-radius: 6px; cursor: pointer;">Retry</button>
     </div></li>`;
   }
 }
@@ -123,7 +123,7 @@ async function renderRepos(repos, languagesCache) {
 
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-    <div style="background-color: rgba(53,53,53,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
+  <div style="background-color: var(--bg-353535); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:60vw;" class="repo-card">
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
           <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="font-weight: thin; font-size: large;">${repo.name} :</a><br> ${repo.description || 'No description available'}<br>
           <div style="color: rgba(217,217,217,1); font-size: larger;">Main languages: ${languagesList.length ? languagesList.join(', ') : 'None detected'}</div><br>
@@ -146,7 +146,7 @@ async function renderRepos(repos, languagesCache) {
       console.error(`Error processing repo "${repo.name}" (URL: ${repo.html_url}): ${error.message}\nStack Trace:`, error.stack);
       const errorItem = document.createElement('li');
       errorItem.innerHTML = `
-        <div style="background-color:rgba(53,53,53,1); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
+    <div style="background-color: var(--bg-353535); border-radius: 10px; padding: 10px; margin-bottom: 15px; width:80vw;">
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">
           <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>: ${error.message}
         </div>
@@ -160,7 +160,7 @@ async function renderRepos(repos, languagesCache) {
   // Add refresh button after all repos
   const refreshItem = document.createElement('li');
   refreshItem.innerHTML = `
-    <button onclick="clearGitHubCache()" style="background: #0D1117; border: 1px solid #30363D; color: #c9d1d9; padding: 5px 10px; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+    <button onclick="clearGitHubCache()" style="background: var(--bg-0d1117); border: 1px solid var(--border-30363d); color: var(--muted-c9d1d9); padding: 5px 10px; border-radius: 6px; cursor: pointer; margin-top: 10px;">
       Refresh Repository Data
     </button>
   `;
