@@ -2,7 +2,7 @@ html {
 	height: 100vh;
 	scrollbar-width: none;
 }
-/* Color variables - single source of truth for theme colors */
+/* Color variables (centralized) */
 :root{
 	/* neutrals */
 	--black: rgba(0,0,0,1);
@@ -37,8 +37,6 @@ html {
 	--accent-dark-95: rgba(86,27,86,0.95);
 	/* unify subtle white variants to single token */
 	--white-12: rgba(255,255,255,0.12);
-	--white-12: rgba(255,255,255,0.12);
-	--journal-bg-1: rgba(89,72,112,0.8118); /* #594870cf */
 	--journal-bg-2: rgba(57,47,73,0.8118); /* #392f49cf */
 	--journal-bg-3: rgba(131,134,117,1); /* #838675 */
 	--journal-text-1: rgba(41,57,17,1); /* #293911 */
@@ -57,6 +55,17 @@ html {
 	--bg-353535: rgba(53,53,53,1); /* #353535 - alternate repo bg */
 	/* keep legacy alias but point to canonical --black */
 	--fill-black: var(--black);
+
+	/* typography scale (centralized) */
+	--fs-note: 0.95rem;   /* small note text */
+	--fs-body: 1.2rem;    /* main body text */
+	--fs-lg: 20px;        /* large label / control */
+	--fs-h1: 2em;         /* primary headings */
+	--fs-h2: 1.75em;      /* secondary headings */
+	--fs-h3: 1.5em;       /* tertiary headings */
+	--fs-sm: 0.8em;       /* small text */
+	--fs-xs: 14px;        /* extra small */
+	--fs-xlarge: x-large; /* legacy x-large mapping */
 }
 body {
 	padding: 0vh;
@@ -75,7 +84,7 @@ body {
 .site-content article.open > :not(h2){
 	display: block;
 }
-.collapsible-note{ font-size: 0.95rem; color: rgba(200,200,200,0.9); }
+.collapsible-note{ font-size: var(--fs-note); color: rgba(200,200,200,0.9); }
 
  article{
 	background-color: var(--accent-dark-95);
@@ -157,7 +166,7 @@ article img{
 	position: relative;
 	z-index: 2;
 	color: var(--text);
-	font-size: 1.2rem;
+	font-size: var(--fs-body);
 	-webkit-box-shadow: var(--black) 0 7px 35px 0;
 	-moz-box-shadow: var(--black) 0 7px 35px 0;
 	box-shadow: var(--black) 0 7px 35px 0;
@@ -170,7 +179,7 @@ article img{
 
 #intro{
 	padding: 1%;
-	font-size: 20px;
+	font-size: var(--fs-lg);
 }
 h1{
     position: relative;
@@ -200,7 +209,7 @@ li{
 	overflow: visible; /* allow children to overflow/overlay */
 	z-index: 2;
 	color: var(--nav-text);
-	font-size: 2em;
+	font-size: var(--fs-h1);
 	background-color: var(--accent-dark-95);
 	border-radius: 20px 20px 0 0;
 	width: 100%;
@@ -208,17 +217,20 @@ li{
 	flex-shrink: 0;
 }
 .flex-nav {
+	
 	align-items:center;
 	padding-left: 2vw;
 	padding-right: 2vw;
 	border-bottom-color: var(--black);
 	border-bottom-width: 5px;
-	font-size: .8em;
+	font-size: var(--fs-sm);
 	color: var(--nav-text);
 	cursor: pointer;
+	border-radius: 10px;
 }
 .flex-nav:hover {
 	background-color: var(--accent-dark-54);
+	border-radius: 10px;
 }
 .flex-nav-block{
 	display: flex;
@@ -228,7 +240,7 @@ li{
 	padding-right: 2vw;
 	border-bottom-color: var(--black);
 	border-bottom-width: 5px;
-	font-size: .8em;
+	font-size: var(--fs-sm);
 	color: var(--nav-text);
 	cursor: pointer;
 	position: relative; /* establish containing block for absolute submenu */
@@ -279,7 +291,6 @@ li{
 /* Journal */
 
 .journal{
-background-color: var(--journal-bg-1);
 border-radius: 20px;
 }
 
@@ -317,7 +328,7 @@ border-radius: 20px;
   align-items: center;
   z-index: 9999;
   font-family: sans-serif;
-  font-size: 14px;
+	font-size: var(--fs-xs);
 }
 #zoom-control .zc-btn {
   min-width: 34px;
@@ -359,7 +370,7 @@ table {
 	border-style: groove;
 	table-layout: fixed;
 	background-color: var(--overlay-75);
-	font-size:1.75em
+	font-size: var(--fs-h2)
 }
 
 table th:first-child,
@@ -380,17 +391,17 @@ table td:first-child {
 }
 .Dropped{
 	color: var(--danger);
-	font-size: x-large;
+	font-size: var(--fs-xlarge);
 	text-shadow: 0 0 5px rgba(255,0,0,0.5);
 }
 .Completed{
 	color: var(--success);
-	font-size: x-large;
+	font-size: var(--fs-xlarge);
 	text-shadow: 0 0 5px rgba(0,255,0,0.5);
 }
 .InPro{
 	color: var(--info);
-	font-size: x-large;
+	font-size: var(--fs-xlarge);
 	text-shadow: 0 0 5px rgba(0,139,139,0.5);
 }
 
@@ -562,7 +573,7 @@ table td:first-child {
 	@media (max-width: 600px) {
 		body{
 			height: 100vh;
-			font-size:x-large
+			font-size:var(--fs-xlarge)
 		}
 		.page-container {
 			padding: 1vh 1vw;
@@ -583,7 +594,7 @@ table td:first-child {
 			height: auto;
 			background-color: var(--accent);
 			border-radius: 15px 15px 0 0;
-			font-size: 1.5em;
+			font-size: var(--fs-h3);
 		}
 		.site-content {
 			display: none;

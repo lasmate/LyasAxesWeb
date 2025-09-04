@@ -11,7 +11,7 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		"nav.table": "Tableau de <br> compétences"
 		// Index / WhoAmI
 		,"whoami.CV": "Vous pouvez trouver mon CV en cliquant <a href=\"img/CV_Lya_LASVENES_2025 (1).pdf\">ici</a>. <br>Et si vous voulez voir mon profil LinkedIn, cliquez <a href=\"https://www.linkedin.com/in/lya-lasvenes-3969b8327/\">ici</a>."
-		,"whoami.h1": "Heya, je m'appelle Lya"
+		,"whoami.h1": "Heya, Moi c'est Lya! "
 		,"whoami.h3": "Je suis une étudiante passionnée en informatique, spécialisée en développement web"
 		,"whoami.p1": "J'ai eu 25 ans cette année."
 		,"whoami.p2": "Je poursuis actuellement mes études en développement web. Je vise un diplôme en SIO (Services Informatiques aux Organisations) avec l'option SLAM (Solutions Logicielles et Applications Métiers) cette année."
