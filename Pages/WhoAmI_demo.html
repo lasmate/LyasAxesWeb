@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhoAmI Reveal Demo</title>
+    <link href="../style/newstyle.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="icon" href="../img/TraFavicon.png" type="image/x-icon">
+    <style>
+      /* small demo-only styles */
+      .reveal-target { font-size: 2rem; line-height: 1.1; }
+
+      /* letter reveal */
+  .reveal-char { display:inline-block; position:relative; vertical-align:bottom; }
+  .reveal-char .r-from,
+  .reveal-char .r-to { display:inline-block; position:relative; white-space:pre; }
+
+  /* after preparation we layer them absolutely; when animating we crossfade */
+  .reveal-char.layered { position:relative; }
+  .reveal-char.layered .r-from,
+  .reveal-char.layered .r-to { position:absolute; left:0; top:0; right:0; bottom:0; display:inline-block; width:100%; height:100%; }
+
+  /* initial visual states */
+  .r-from { font-family: 'Wingdings', 'Arial', sans-serif; opacity:1; transform: translateY(.1em); transition: opacity .26s ease, transform .36s cubic-bezier(.2,.9,.3,1); }
+  .r-to { font-family: 'Genos', sans-serif; opacity:0; transform: translateY(.25em) scale(.98); transition: opacity .26s ease, transform .36s cubic-bezier(.2,.9,.3,1); }
+
+  /* animate to cross-fade into Genos */
+  .reveal-animate .r-from { opacity:0; transform: translateY(.25em) scale(.98); }
+  .reveal-animate .r-to { opacity:1; transform: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal-char { transition:none; opacity:1; transform:none; }
+      }
+
+      .demo-controls { margin: 12px 0; }
+  .zc-btn { padding: 6px 10px; border-radius:6px; border:1px solid rgba(102,102,102,1); background: rgba(34,34,34,1); color: rgba(255,255,255,1); cursor:pointer }
+    </style>
+  </head>
+
+<body>
+
+<div class="page-container" style="min-height:100vh;">
+  <div class="content-wrapper">
+    <div class="flex-container">
+      <div class="flex-nav"> <span data-i18n="nav.home" onclick="location.href='../index.html'">Acceuil</span></div>
+      <div class="flex-nav"> <span data-i18n="nav.programming" onclick="location.href='CodePort.html'">Programmation</span></div>
+      <div class="flex-nav"> <span data-i18n="nav.journal" onclick="location.href='JournalPort.html'">Journal</span></div>
+      <div class="flex-nav"> <span data-i18n="nav.table" onclick="location.href='Tableau de competence.html'">Tableau</span></div>
+    </div>
+
+    <div class="site-content" style="padding:24px;">
+      <h1>Reveal animation demo</h1>
+      <p class="demo-controls">
+        <button id="reveal-btn" class="zc-btn">Reveal text</button>
+        <button id="reset-btn" class="zc-btn">Reset</button>
+      </p>
+
+      <article>
+        <h2 class="reveal-target" id="demo-heading">Hi — I'm Lya, a web developer in training.</h2>
+        <p id="demo-lead">This demo shows a simple letter-by-letter reveal using CSS transitions and a small JS splitter.
+        Click Reveal to animate the heading.</p>
+      </article>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function splitToSpans(el){
+    if(!el || el.dataset.splitDone) return;
+    const text = el.textContent || '';
+    el.textContent = '';
+
+  // create inline placeholders first so we can measure widths
+  Array.from(text).forEach((ch,i)=>{
+      const wrapper = document.createElement('span');
+      wrapper.className = 'reveal-char';
+      // two children: r-from (Arial) and r-to (Genos)
+      const f = document.createElement('span'); f.className = 'r-from'; f.textContent = ch;
+      const t = document.createElement('span'); t.className = 'r-to'; t.textContent = ch;
+      // append both inline to measure natural width
+      wrapper.appendChild(f);
+      wrapper.appendChild(t);
+      el.appendChild(wrapper);
+    });
+
+    // measure and convert to layered mode
+    const children = Array.from(el.querySelectorAll('.reveal-char'));
+    const BASE_DELAY_MS = 200; // wait before starting per-letter transitions
+    const comp = window.getComputedStyle(el);
+    const computedFontSize = comp.fontSize || '16px';
+    const computedLineHeight = comp.lineHeight || '1';
+    // overlap factor controls how much adjacent glyphs overlap (0 = no overlap, 0.5 = 50%)
+    const OVERLAP_FACTOR = 1;
+    // make heading a positioning context
+    el.style.position = 'relative';
+    let x = 0;
+    children.forEach((wrapper, i) => {
+      // measure current width while children inherit normal font-size
+      const w = Math.ceil(wrapper.getBoundingClientRect().width);
+      wrapper.style.width = w+ 'px';
+      wrapper.style.display = 'inline-block';
+      // collapse wrapper font-size to remove inter-element gaps
+      wrapper.style.fontSize = '0';
+      wrapper.style.lineHeight = '0';
+      wrapper.style.margin = '0';
+      wrapper.style.padding = '0';
+      wrapper.style.boxSizing = 'content-box';
+      // make layered so both children occupy same space
+      wrapper.classList.add('layered');
+      // set explicit font-size/line-height on children so they render correctly
+      const from = wrapper.querySelector('.r-from');
+      const to = wrapper.querySelector('.r-to');
+      from.style.fontSize = computedFontSize;
+      to.style.fontSize = computedFontSize;
+      from.style.lineHeight = computedLineHeight;
+      to.style.lineHeight = computedLineHeight;
+      // set staggered delays on children
+      const delay = BASE_DELAY_MS + (i * 30);
+      from.style.transitionDelay = delay + 'ms';
+      to.style.transitionDelay = (delay + 80) + 'ms';
+    });
+
+    el.dataset.splitDone = '1';
+  }
+
+  const heading = document.getElementById('demo-heading');
+  splitToSpans(heading);
+
+  const revealBtn = document.getElementById('reveal-btn');
+  const resetBtn = document.getElementById('reset-btn');
+
+  function reveal(){
+    heading.classList.add('reveal-animate');
+  }
+  function reset(){
+    heading.classList.remove('reveal-animate');
+    // force reflow so the animation can replay
+    void heading.offsetWidth;
+  }
+
+  revealBtn.addEventListener('click', reveal);
+  resetBtn.addEventListener('click', ()=>{ reset(); setTimeout(reveal, 50); });
+
+  // optionally auto-play once on load
+  window.addEventListener('load', ()=> setTimeout(reveal, 400));
+})();
+</script>
+
+</body>
+</html>

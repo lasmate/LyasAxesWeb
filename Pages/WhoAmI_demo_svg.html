@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WhoAmI SVG Reveal Demo</title>
+  <link href="../style/newstyle.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
+  <style>
+  body { background: rgba(11,11,13,1); color: rgba(255,255,255,1); font-family: Roboto, sans-serif; }
+    .page { padding: 28px; }
+    .controls { margin: 12px 0; }
+  .zc-btn { padding: 8px 12px; border-radius:6px; border:1px solid rgba(102,102,102,1); background: rgba(34,34,34,1); color: rgba(255,255,255,1); cursor:pointer }
+
+    /* SVG text styles */
+    svg { display:block; max-width:100%; }
+  .from-layer tspan { fill: rgba(153,238,204,1); opacity: 1; transition: opacity .32s linear, transform .36s cubic-bezier(.2,.9,.3,1); }
+  .to-layer tspan { fill: rgba(255,255,255,1); opacity: 0; transition: opacity .32s linear, transform .36s cubic-bezier(.2,.9,.3,1); }
+    /* reveal toggles */
+    .reveal .from-layer tspan { opacity: 0; transform: translateY(6px); }
+    .reveal .to-layer tspan { opacity: 1; transform: translateY(0); }
+
+    /* small accessibility fallback */
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0 }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>SVG Glyph → Readable Reveal (demo)</h1>
+    <p class="controls">
+      <button id="reveal" class="zc-btn">Reveal</button>
+      <button id="reset" class="zc-btn">Reset</button>
+    </p>
+
+    <div id="svg-wrap" aria-hidden="false"></div>
+    <p class="sr-only" id="a11y-text"></p>
+  </div>
+
+<script>
+(function(){
+  const text = "Hi — I'm Lya, a web developer in training.";
+  const BASE_DELAY = 200; // ms
+  const STAGGER = 30; // ms per char
+  const OVERLAP = 0.12; // overlap factor when placing glyphs (0..1). lower = less overlap
+  const fontSize = 48; // px for SVG
+
+  function createSVGReveal(text){
+    const wrap = document.getElementById('svg-wrap');
+    wrap.innerHTML = '';
+
+    // measurement canvas
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d');
+
+    // fonts to measure - compute positions using the readable (to) font
+    const toFontName = 'Genos';
+    const toFontSpec = `${fontSize}px ${toFontName}`;
+
+    // ensure the webfont is loaded before measuring for accurate widths
+    if (document.fonts && document.fonts.load) {
+      // try to load the font (non-blocking if already available)
+      try { document.fonts.load(toFontSpec); } catch(e) { /* ignore */ }
+    }
+
+    // set canvas font to the readable font (fallback handled by browser)
+    ctx.font = `${fontSize}px ${toFontName}, sans-serif`;
+
+    // measure widths for each char using the readable font
+    const widths = Array.from(text).map(ch => Math.max(1, Math.ceil(ctx.measureText(ch).width)));
+
+    // compute positions with overlap
+    const positions = [];
+    let x = 0;
+    for (let i=0;i<widths.length;i++){
+      positions.push(Math.round(x));
+      const w = widths[i];
+      // reduce advance by a fraction of the width to create a gentle overlap
+      const advance = chIsSpace(text[i]) ? w : Math.max(1, Math.round(w - (w * OVERLAP)));
+      x += advance;
+    }
+    const totalWidth = Math.max(200, Math.round(x) + 8); // add small padding to avoid clipping
+    const totalHeight = Math.ceil(fontSize * 1.2);
+
+    // create svg
+    const svgns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgns, 'svg');
+    svg.setAttribute('width', totalWidth);
+    svg.setAttribute('height', totalHeight);
+    svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
+
+    // groups
+    const gFrom = document.createElementNS(svgns, 'g'); gFrom.setAttribute('class', 'from-layer');
+    const gTo = document.createElementNS(svgns, 'g'); gTo.setAttribute('class', 'to-layer');
+
+    // create text elements (one <text> with many tspans for each layer)
+    const textFrom = document.createElementNS(svgns, 'text');
+    textFrom.setAttribute('x', 0);
+    textFrom.setAttribute('y', Math.round(fontSize * 0.85));
+    textFrom.setAttribute('font-family', 'Wingdings, Arial, sans-serif');
+    textFrom.setAttribute('font-size', fontSize);
+
+    const textTo = document.createElementNS(svgns, 'text');
+    textTo.setAttribute('x', 0);
+    textTo.setAttribute('y', Math.round(fontSize * 0.85));
+    textTo.setAttribute('font-family', "Genos, sans-serif");
+    textTo.setAttribute('font-size', fontSize);
+
+    // add tspans
+    for (let i=0;i<text.length;i++){
+      const ch = text[i];
+      const tspanF = document.createElementNS(svgns, 'tspan');
+      tspanF.setAttribute('x', positions[i] + 2);
+      tspanF.setAttribute('dy', '0');
+  // render the from-layer as a single glyph (▢) for non-space chars
+  tspanF.textContent = chIsSpace(ch) ? ch : '▢';
+      // style delay
+      tspanF.style.transitionDelay = (BASE_DELAY + i*STAGGER) + 'ms';
+
+      const tspanT = document.createElementNS(svgns, 'tspan');
+      tspanT.setAttribute('x', positions[i] + 2);
+      tspanT.setAttribute('dy', '0');
+      tspanT.textContent = ch;
+      tspanT.style.transitionDelay = (BASE_DELAY + i*STAGGER + 80) + 'ms';
+
+      textFrom.appendChild(tspanF);
+      textTo.appendChild(tspanT);
+    }
+
+    gFrom.appendChild(textFrom);
+    gTo.appendChild(textTo);
+    svg.appendChild(gFrom);
+    svg.appendChild(gTo);
+
+    wrap.appendChild(svg);
+
+    // accessibility text
+    document.getElementById('a11y-text').textContent = text;
+
+    return svg;
+  }
+
+  function chIsSpace(ch){ return ch === ' ' || ch === '\n' || ch === '\t'; }
+
+  const svg = createSVGReveal(text);
+  const wrap = document.getElementById('svg-wrap');
+
+  document.getElementById('reveal').addEventListener('click', ()=>{
+    wrap.classList.remove('reveal');
+    // force reflow then add
+    void wrap.offsetWidth;
+    wrap.classList.add('reveal');
+  });
+  document.getElementById('reset').addEventListener('click', ()=>{
+    wrap.classList.remove('reveal');
+  });
+
+  // autoplay
+  window.addEventListener('load', ()=> setTimeout(()=> wrap.classList.add('reveal'), 500));
+
+})();
+</script>
+<script src="../scripts/translations.js"></script>
+<script src="../scripts/i18n.js" defer></script>
+</body>
+</html>
