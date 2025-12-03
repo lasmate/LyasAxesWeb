@@ -26,9 +26,9 @@ window.TRANSLATIONS = window.TRANSLATIONS || {
 		,"whoami.hobby.5": "Lire des romans de science-fiction (Isaac Asimov, my beloved <3)"
 
 		// Code portfolio page
-		,"code.h1": "Portfolio de code de Lya"
-		,"code.intro": "<span style='color: bisque;'><b>Voici mon portfolio de code public</b></span><br>Vous trouverez ici la liste de mes dépôts publics accompagnée d'une courte description de leur objectif et des outils/langages utilisés.<br>Tous ne sont pas des projets terminés ; ils seront marqués par des labels <b>#Completed, #Maintained, #In progress, #Dropped</b>.<br>Ils peuvent aussi être indiqués comme <b>#Functionnal</b> ou <b>#Not Functionnal</b>.<br><br>"
-		,"code.recent": "du mis à jour le plus récemment au plus ancien"
+		,"code.h1": "Mon portfolio de code public"
+		,"code.intro": "<span style='color: bisque;'><b>Voici mon portfolio de code public</b></span><br>Vous trouverez ici la liste de mes dépôts publics accompagnée d'une courte description de leur objectif et des outils/langages utilisés.<br>Tous ne sont pas des projets terminés; ils seront marqués par des labels <b>#Completed, #Maintained, #In progress, #Dropped</b>.<br>Ils peuvent aussi être indiqués comme <b>#Functionnal</b> ou <b>#Not Functionnal</b>.<br><br>"
+		,"code.recent": "du plus récemment au plus ancien"
 
 		// 3D portfolio
 		,"3d.h1": "Portfolio 3DCG de Lya Lasvenes"
